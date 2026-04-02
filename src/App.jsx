@@ -179,7 +179,7 @@ function App() {
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.z = 25
-    camera.position.x = 5
+    camera.position.x = 0
 
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -198,7 +198,7 @@ function App() {
     })
 
     const pointCloud = new THREE.Points(geometry, material)
-    pointCloud.position.set(2, 0, 0)
+    pointCloud.position.set(0, 0, 0)
     scene.add(pointCloud)
 
     const debrisGeometry = new THREE.BufferGeometry()
