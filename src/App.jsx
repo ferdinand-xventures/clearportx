@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import './App.css'
 
@@ -178,26 +178,58 @@ function App() {
   const canvasRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
-  const [activeFeature, setActiveFeature] = useState(-1)
-  const featureRefs = useRef([])
+  const glyphCanvasRef = useRef(null)
 
   useScrollReveal()
 
-  // Track which feature card is in view for the architecture diagram
+  // Glyph matrix animation
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number(entry.target.dataset.featureIndex)
-            setActiveFeature((prev) => Math.max(prev, idx))
-          }
-        })
-      },
-      { threshold: 0.5 }
-    )
-    featureRefs.current.forEach((el) => el && observer.observe(el))
-    return () => observer.disconnect()
+    const canvas = glyphCanvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    const symbols = '> = □ ∞ ◇ ∴ ⊕ ⊗ ∆ ◈ ▸ ⬡ ⊞ ≡ ∝ ⊿'.split(' ')
+    const cols = 28
+    const rows = 22
+    const cellW = 18
+    const cellH = 18
+    canvas.width = cols * cellW
+    canvas.height = rows * cellH
+
+    // Generate stable grid
+    const grid = []
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        if (Math.random() > 0.35) {
+          grid.push({
+            x: c * cellW + cellW / 2,
+            y: r * cellH + cellH / 2,
+            symbol: symbols[Math.floor(Math.random() * symbols.length)],
+            baseOpacity: 0.08 + Math.random() * 0.25,
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.3 + Math.random() * 0.7,
+          })
+        }
+      }
+    }
+
+    let frameId
+    const animate = (time) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.font = '11px Manrope, monospace'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+
+      for (const g of grid) {
+        const pulse = Math.sin(time * 0.001 * g.speed + g.phase) * 0.5 + 0.5
+        const opacity = g.baseOpacity * (0.4 + pulse * 0.6)
+        ctx.fillStyle = `rgba(195, 150, 83, ${opacity})`
+        ctx.fillText(g.symbol, g.x, g.y)
+      }
+
+      frameId = requestAnimationFrame(animate)
+    }
+    frameId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frameId)
   }, [])
 
   useEffect(() => {
@@ -392,53 +424,15 @@ function App() {
                 organizations. Privacy, compliance, and performance at scale.
               </p>
 
-              {/* Architecture diagram that builds as you scroll */}
-              <div className="arch-diagram reveal">
-                <svg viewBox="0 0 320 360" fill="none" xmlns="http://www.w3.org/2000/svg" className="arch-svg">
-                  {/* Connection lines */}
-                  <line x1="160" y1="80" x2="160" y2="120" className={`arch-line ${activeFeature >= 1 ? 'active' : ''}`} />
-                  <line x1="160" y1="170" x2="160" y2="210" className={`arch-line ${activeFeature >= 2 ? 'active' : ''}`} />
-                  <line x1="160" y1="260" x2="160" y2="300" className={`arch-line ${activeFeature >= 3 ? 'active' : ''}`} />
-
-                  {/* Layer 1 — Privacy */}
-                  <rect x="30" y="30" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 0 ? 'active' : ''}`} />
-                  <text x="160" y="60" textAnchor="middle" className={`arch-text ${activeFeature >= 0 ? 'active' : ''}`}>Privacy Layer</text>
-
-                  {/* Layer 2 — Settlement */}
-                  <rect x="30" y="120" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 1 ? 'active' : ''}`} />
-                  <text x="160" y="150" textAnchor="middle" className={`arch-text ${activeFeature >= 1 ? 'active' : ''}`}>Settlement Layer</text>
-
-                  {/* Layer 3 — Compliance */}
-                  <rect x="30" y="210" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 2 ? 'active' : ''}`} />
-                  <text x="160" y="240" textAnchor="middle" className={`arch-text ${activeFeature >= 2 ? 'active' : ''}`}>Compliance Layer</text>
-
-                  {/* Layer 4 — Liquidity */}
-                  <rect x="30" y="300" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 3 ? 'active' : ''}`} />
-                  <text x="160" y="330" textAnchor="middle" className={`arch-text ${activeFeature >= 3 ? 'active' : ''}`}>Liquidity Layer</text>
-
-                  {/* Side decorative nodes */}
-                  <circle cx="20" cy="55" r="4" className={`arch-dot ${activeFeature >= 0 ? 'active' : ''}`} />
-                  <circle cx="300" cy="145" r="4" className={`arch-dot ${activeFeature >= 1 ? 'active' : ''}`} />
-                  <circle cx="20" cy="235" r="4" className={`arch-dot ${activeFeature >= 2 ? 'active' : ''}`} />
-                  <circle cx="300" cy="325" r="4" className={`arch-dot ${activeFeature >= 3 ? 'active' : ''}`} />
-
-                  {/* Horizontal connector lines */}
-                  <line x1="24" y1="55" x2="30" y2="55" className={`arch-line ${activeFeature >= 0 ? 'active' : ''}`} />
-                  <line x1="290" y1="145" x2="296" y2="145" className={`arch-line ${activeFeature >= 1 ? 'active' : ''}`} />
-                  <line x1="24" y1="235" x2="30" y2="235" className={`arch-line ${activeFeature >= 2 ? 'active' : ''}`} />
-                  <line x1="290" y1="325" x2="296" y2="325" className={`arch-line ${activeFeature >= 3 ? 'active' : ''}`} />
-                </svg>
+              {/* Glyph matrix visual */}
+              <div className="glyph-matrix">
+                <canvas ref={glyphCanvasRef} />
               </div>
             </div>
           </div>
           <div className="platform-right">
             {FEATURES.map((f, i) => (
-              <div
-                className="feature-card reveal"
-                key={f.title}
-                ref={(el) => (featureRefs.current[i] = el)}
-                data-feature-index={i}
-              >
+              <div className="feature-card reveal" key={f.title}>
                 <div className="feature-number">0{i + 1}</div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
