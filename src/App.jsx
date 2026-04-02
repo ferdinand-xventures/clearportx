@@ -178,59 +178,7 @@ function App() {
   const canvasRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
-  const glyphCanvasRef = useRef(null)
-
   useScrollReveal()
-
-  // Glyph matrix animation
-  useEffect(() => {
-    const canvas = glyphCanvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    const symbols = '> = □ ∞ ◇ ∴ ⊕ ⊗ ∆ ◈ ▸ ⬡ ⊞ ≡ ∝ ⊿'.split(' ')
-    const cols = 28
-    const rows = 22
-    const cellW = 18
-    const cellH = 18
-    canvas.width = cols * cellW
-    canvas.height = rows * cellH
-
-    // Generate stable grid
-    const grid = []
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        if (Math.random() > 0.35) {
-          grid.push({
-            x: c * cellW + cellW / 2,
-            y: r * cellH + cellH / 2,
-            symbol: symbols[Math.floor(Math.random() * symbols.length)],
-            baseOpacity: 0.08 + Math.random() * 0.25,
-            phase: Math.random() * Math.PI * 2,
-            speed: 0.3 + Math.random() * 0.7,
-          })
-        }
-      }
-    }
-
-    let frameId
-    const animate = (time) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.font = '11px Manrope, monospace'
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-
-      for (const g of grid) {
-        const pulse = Math.sin(time * 0.001 * g.speed + g.phase) * 0.5 + 0.5
-        const opacity = g.baseOpacity * (0.4 + pulse * 0.6)
-        ctx.fillStyle = `rgba(195, 150, 83, ${opacity})`
-        ctx.fillText(g.symbol, g.x, g.y)
-      }
-
-      frameId = requestAnimationFrame(animate)
-    }
-    frameId = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(frameId)
-  }, [])
 
   useEffect(() => {
     const container = canvasRef.current
@@ -424,10 +372,6 @@ function App() {
                 organizations. Privacy, compliance, and performance at scale.
               </p>
 
-              {/* Glyph matrix visual */}
-              <div className="glyph-matrix">
-                <canvas ref={glyphCanvasRef} />
-              </div>
             </div>
           </div>
           <div className="platform-right">
