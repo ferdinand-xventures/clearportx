@@ -85,21 +85,41 @@ const FEATURES = [
     title: 'Privacy by Design',
     desc: 'Zero-knowledge proofs ensure complete transaction privacy while maintaining regulatory compliance and auditability.',
     tags: ['Dark Pools', 'ZK Proofs', 'Selective Disclosure'],
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    ),
   },
   {
     title: 'Atomic Settlement',
     desc: 'Instant, guaranteed settlement eliminates counterparty risk and enables true institutional-grade trading.',
     tags: ['Sub-second', 'Guaranteed', 'Cross-domain'],
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    ),
   },
   {
     title: 'Regulatory Compliance',
     desc: 'Built-in compliance frameworks ensure adherence to global financial regulations without compromising innovation.',
     tags: ['GDPR Ready', 'Audit Trails', 'Reporting'],
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+      </svg>
+    ),
   },
   {
     title: 'Liquidity Management',
     desc: 'Advanced liquidity aggregation and optimization across multiple venues with intelligent routing and risk management.',
     tags: ['Smart Routing', 'Risk Controls', 'Multi-Venue'],
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+    ),
   },
 ]
 
@@ -220,11 +240,6 @@ function App() {
       debris.rotation.y -= 0.0005
       debris.rotation.x -= 0.0002
 
-      if (parallaxRef.current) {
-        const textMoveX = mouseRef.current.x * -20
-        const textMoveY = mouseRef.current.y * -20
-        parallaxRef.current.style.transform = `translate3d(${textMoveX}px, ${textMoveY}px, 0)`
-      }
 
       renderer.render(scene, camera)
     }
@@ -310,14 +325,18 @@ function App() {
             organizations. Privacy, compliance, and performance at scale.
           </p>
           <div className="features-grid">
-            {FEATURES.map((f) => (
-              <div className="feature-card" key={f.title}>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-                <div className="feature-tags">
-                  {f.tags.map((t) => (
-                    <span key={t} className="tag">{t}</span>
-                  ))}
+            {FEATURES.map((f, i) => (
+              <div className="feature-card" key={f.title} style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="feature-card-glow" />
+                <div className="feature-card-inner">
+                  <div className="feature-icon">{f.icon}</div>
+                  <h3>{f.title}</h3>
+                  <p>{f.desc}</p>
+                  <div className="feature-tags">
+                    {f.tags.map((t) => (
+                      <span key={t} className="tag">{t}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
@@ -352,10 +371,12 @@ function App() {
 
           <div className="layers-grid">
             {TECH_LAYERS.map((layer, i) => (
-              <div className="layer-card" key={layer.name}>
+              <div className="layer-card" key={layer.name} style={{ animationDelay: `${i * 0.15}s` }}>
+                <div className="layer-accent" />
                 <span className="layer-number">0{i + 1}</span>
                 <h3>{layer.name}</h3>
                 <p>{layer.desc}</p>
+                <div className="layer-line" />
               </div>
             ))}
           </div>
@@ -372,15 +393,22 @@ function App() {
             with privacy, compliance, and scale.
           </p>
           <div className="usecases-grid">
-            {USE_CASES.map((uc) => (
-              <div className="usecase-card" key={uc.title}>
-                <h3>{uc.title}</h3>
-                <p>{uc.desc}</p>
-                <ul>
-                  {uc.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
+            {USE_CASES.map((uc, i) => (
+              <div className="usecase-card" key={uc.title} style={{ animationDelay: `${i * 0.1}s` }}>
+                <div className="usecase-card-border" />
+                <div className="usecase-card-inner">
+                  <div className="usecase-number">0{i + 1}</div>
+                  <h3>{uc.title}</h3>
+                  <p>{uc.desc}</p>
+                  <ul>
+                    {uc.bullets.map((b) => (
+                      <li key={b}>
+                        <span className="bullet-dot" />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
