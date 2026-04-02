@@ -451,7 +451,6 @@ h2 {
 .platform-left-sticky {
   position: sticky;
   top: 120px;
-  z-index: 1;
 }
 
 .platform-right {
@@ -525,19 +524,12 @@ h2 {
 }
 
 /* Dot matrix animation */
-.platform-left {
-  position: relative;
-}
-
 .dot-matrix-wrap {
-  position: absolute;
-  top: -80px;
-  left: -100px;
-  right: -40px;
-  bottom: -80px;
-  pointer-events: none;
-  mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 10%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 10%, transparent 70%);
+  width: 100%;
+  height: 420px;
+  margin-top: 24px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .dot-matrix-wrap canvas {

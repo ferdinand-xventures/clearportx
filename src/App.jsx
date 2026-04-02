@@ -437,9 +437,6 @@ function App() {
       <section className="section" id="platform">
         <div className="platform-layout">
           <div className="platform-left">
-            <div className="dot-matrix-wrap">
-              <canvas ref={dotMatrixRef} />
-            </div>
             <div className="platform-left-sticky">
               <span className="section-label reveal">Platform</span>
               <h2 className="reveal">Built for <span className="highlight">Institutions</span></h2>
@@ -447,6 +444,9 @@ function App() {
                 Enterprise-grade infrastructure designed for the most demanding financial
                 organizations. Privacy, compliance, and performance at scale.
               </p>
+              <div className="dot-matrix-wrap">
+                <canvas ref={dotMatrixRef} />
+              </div>
             </div>
           </div>
           <div className="platform-right">
