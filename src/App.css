@@ -152,11 +152,12 @@ a {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .content-left {
-  max-width: 50vw;
-  padding-left: calc(var(--space-unit) * 1);
+  max-width: 680px;
+  text-align: center;
   transform-style: preserve-3d;
 }
 
@@ -189,6 +190,8 @@ h1 {
   position: relative;
   padding-left: 20px;
   margin-bottom: calc(var(--space-unit) * 1.5);
+  display: inline-block;
+  text-align: left;
 }
 
 .subhead-container::before {
@@ -214,6 +217,7 @@ p.subhead {
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: center;
 }
 
 .btn-primary {
@@ -797,7 +801,7 @@ h2 {
   }
 
   .content-left {
-    max-width: 80vw;
+    max-width: 90vw;
   }
 
   .nav-links {
