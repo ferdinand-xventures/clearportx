@@ -523,6 +523,62 @@ h2 {
   border-color: rgba(195, 150, 83, 0.4);
 }
 
+/* Architecture Diagram */
+.arch-diagram {
+  margin-top: 48px;
+}
+
+.arch-svg {
+  width: 100%;
+  max-width: 320px;
+}
+
+.arch-block {
+  fill: transparent;
+  stroke: rgba(195, 150, 83, 0.1);
+  stroke-width: 1;
+  transition: fill 0.6s ease, stroke 0.6s ease;
+}
+
+.arch-block.active {
+  fill: rgba(195, 150, 83, 0.06);
+  stroke: rgba(195, 150, 83, 0.4);
+}
+
+.arch-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: rgba(195, 150, 83, 0.1);
+  font-weight: 500;
+  transition: fill 0.6s ease;
+}
+
+.arch-text.active {
+  fill: var(--accent-gold);
+}
+
+.arch-line {
+  stroke: rgba(195, 150, 83, 0.08);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  transition: stroke 0.6s ease;
+}
+
+.arch-line.active {
+  stroke: rgba(195, 150, 83, 0.4);
+}
+
+.arch-dot {
+  fill: rgba(195, 150, 83, 0.08);
+  transition: fill 0.6s ease, r 0.3s ease;
+}
+
+.arch-dot.active {
+  fill: var(--accent-gold);
+}
+
 /* ============================
    MANIFESTO SECTION
    ============================ */
@@ -959,6 +1015,10 @@ h2 {
 
   .platform-left-sticky {
     position: static;
+  }
+
+  .arch-diagram {
+    display: none;
   }
 
   .usecases-grid {

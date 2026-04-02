@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import * as THREE from 'three'
 import './App.css'
 
@@ -178,8 +178,27 @@ function App() {
   const canvasRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
+  const [activeFeature, setActiveFeature] = useState(-1)
+  const featureRefs = useRef([])
 
   useScrollReveal()
+
+  // Track which feature card is in view for the architecture diagram
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number(entry.target.dataset.featureIndex)
+            setActiveFeature((prev) => Math.max(prev, idx))
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
+    featureRefs.current.forEach((el) => el && observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const container = canvasRef.current
@@ -372,12 +391,54 @@ function App() {
                 Enterprise-grade infrastructure designed for the most demanding financial
                 organizations. Privacy, compliance, and performance at scale.
               </p>
-              <a className="btn-primary reveal" href="#access">Explore Platform</a>
+
+              {/* Architecture diagram that builds as you scroll */}
+              <div className="arch-diagram reveal">
+                <svg viewBox="0 0 320 360" fill="none" xmlns="http://www.w3.org/2000/svg" className="arch-svg">
+                  {/* Connection lines */}
+                  <line x1="160" y1="80" x2="160" y2="120" className={`arch-line ${activeFeature >= 1 ? 'active' : ''}`} />
+                  <line x1="160" y1="170" x2="160" y2="210" className={`arch-line ${activeFeature >= 2 ? 'active' : ''}`} />
+                  <line x1="160" y1="260" x2="160" y2="300" className={`arch-line ${activeFeature >= 3 ? 'active' : ''}`} />
+
+                  {/* Layer 1 — Privacy */}
+                  <rect x="30" y="30" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 0 ? 'active' : ''}`} />
+                  <text x="160" y="60" textAnchor="middle" className={`arch-text ${activeFeature >= 0 ? 'active' : ''}`}>Privacy Layer</text>
+
+                  {/* Layer 2 — Settlement */}
+                  <rect x="30" y="120" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 1 ? 'active' : ''}`} />
+                  <text x="160" y="150" textAnchor="middle" className={`arch-text ${activeFeature >= 1 ? 'active' : ''}`}>Settlement Layer</text>
+
+                  {/* Layer 3 — Compliance */}
+                  <rect x="30" y="210" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 2 ? 'active' : ''}`} />
+                  <text x="160" y="240" textAnchor="middle" className={`arch-text ${activeFeature >= 2 ? 'active' : ''}`}>Compliance Layer</text>
+
+                  {/* Layer 4 — Liquidity */}
+                  <rect x="30" y="300" width="260" height="50" rx="0" className={`arch-block ${activeFeature >= 3 ? 'active' : ''}`} />
+                  <text x="160" y="330" textAnchor="middle" className={`arch-text ${activeFeature >= 3 ? 'active' : ''}`}>Liquidity Layer</text>
+
+                  {/* Side decorative nodes */}
+                  <circle cx="20" cy="55" r="4" className={`arch-dot ${activeFeature >= 0 ? 'active' : ''}`} />
+                  <circle cx="300" cy="145" r="4" className={`arch-dot ${activeFeature >= 1 ? 'active' : ''}`} />
+                  <circle cx="20" cy="235" r="4" className={`arch-dot ${activeFeature >= 2 ? 'active' : ''}`} />
+                  <circle cx="300" cy="325" r="4" className={`arch-dot ${activeFeature >= 3 ? 'active' : ''}`} />
+
+                  {/* Horizontal connector lines */}
+                  <line x1="24" y1="55" x2="30" y2="55" className={`arch-line ${activeFeature >= 0 ? 'active' : ''}`} />
+                  <line x1="290" y1="145" x2="296" y2="145" className={`arch-line ${activeFeature >= 1 ? 'active' : ''}`} />
+                  <line x1="24" y1="235" x2="30" y2="235" className={`arch-line ${activeFeature >= 2 ? 'active' : ''}`} />
+                  <line x1="290" y1="325" x2="296" y2="325" className={`arch-line ${activeFeature >= 3 ? 'active' : ''}`} />
+                </svg>
+              </div>
             </div>
           </div>
           <div className="platform-right">
             {FEATURES.map((f, i) => (
-              <div className="feature-card reveal" key={f.title}>
+              <div
+                className="feature-card reveal"
+                key={f.title}
+                ref={(el) => (featureRefs.current[i] = el)}
+                data-feature-index={i}
+              >
                 <div className="feature-number">0{i + 1}</div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
