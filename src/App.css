@@ -494,13 +494,23 @@ h2 {
 }
 
 .feature-card {
-  padding: 32px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--border-color);
   position: relative;
 }
 
 .feature-card:first-child {
   border-top: 1px solid var(--border-color);
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.feature-card p {
+  font-size: 0.82rem;
+  margin-bottom: 14px;
 }
 
 .feature-card:hover {
