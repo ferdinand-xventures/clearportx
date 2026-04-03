@@ -44,12 +44,26 @@ a {
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1), transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Slide from left variant */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1), transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* ============================

@@ -153,6 +153,12 @@ function useScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // Find siblings with .reveal in the same parent to stagger them
+            const parent = entry.target.parentElement
+            const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .reveal')) : []
+            const idx = siblings.indexOf(entry.target)
+            const delay = idx >= 0 ? idx * 0.15 : 0
+            entry.target.style.transitionDelay = `${delay}s`
             entry.target.classList.add('revealed')
             observerRef.current?.unobserve(entry.target)
           }
@@ -161,7 +167,7 @@ function useScrollReveal() {
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
     )
 
-    document.querySelectorAll('.reveal').forEach((el) => {
+    document.querySelectorAll('.reveal, .reveal-left').forEach((el) => {
       observerRef.current.observe(el)
     })
 
@@ -459,13 +465,13 @@ function App() {
       {/* ===== PLATFORM SECTION — Sticky left + scroll right ===== */}
       <section className="section" id="platform">
         <div className="platform-layout">
-          <div className="platform-left">
+          <div className="platform-left reveal-left">
             <div className="platform-left-sticky">
               <canvas ref={dotMatrixRef} className="dot-matrix-canvas" />
               <div className="platform-left-content">
-                <span className="section-label reveal">Platform</span>
-                <h2 className="reveal">Built for <span className="highlight">Institutions</span></h2>
-                <p className="section-subtitle reveal">
+                <span className="section-label">Platform</span>
+                <h2>Built for <span className="highlight">Institutions</span></h2>
+                <p className="section-subtitle">
                   Enterprise-grade infrastructure designed for the most demanding financial
                   organizations. Privacy, compliance, and performance at scale.
                 </p>
