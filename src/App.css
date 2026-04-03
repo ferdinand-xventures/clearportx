@@ -81,6 +81,18 @@ a {
   padding: calc(var(--space-unit) * 1.5) calc(var(--space-unit) * 2);
 }
 
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 5;
+}
+
 #canvas-container {
   position: absolute;
   top: 0;
@@ -410,6 +422,7 @@ h2 {
   position: relative;
   height: 350vh;
   background: var(--bg);
+  border-top: 1px solid var(--border-color);
 }
 
 .platform-sticky {
