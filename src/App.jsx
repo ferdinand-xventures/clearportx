@@ -162,6 +162,7 @@ function useScrollReveal() {
 function App() {
   const canvasRef = useRef(null)
   const dotMatrixRef = useRef(null)
+  const networkCanvasRef = useRef(null)
   const platformRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
@@ -277,6 +278,91 @@ function App() {
     return () => {
       cancelAnimationFrame(rafId)
       window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  // Network graph animation for technology section
+  useEffect(() => {
+    const canvas = networkCanvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let rafId, dpr, w, h
+    const nodes = []
+    const NODE_COUNT = 40
+    const CONNECTION_DIST = 180
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect()
+      dpr = Math.min(window.devicePixelRatio, 2)
+      w = rect.width
+      h = rect.height
+      canvas.width = w * dpr
+      canvas.height = h * dpr
+      canvas.style.width = w + 'px'
+      canvas.style.height = h + 'px'
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+
+    function initNodes() {
+      nodes.length = 0
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 2 + 1,
+        })
+      }
+    }
+
+    resize()
+    initNodes()
+    window.addEventListener('resize', () => { resize(); initNodes() })
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h)
+
+      // Update positions
+      for (const n of nodes) {
+        n.x += n.vx
+        n.y += n.vy
+        if (n.x < 0 || n.x > w) n.vx *= -1
+        if (n.y < 0 || n.y > h) n.vy *= -1
+      }
+
+      // Draw connections
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x
+          const dy = nodes[i].y - nodes[j].y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < CONNECTION_DIST) {
+            const alpha = (1 - dist / CONNECTION_DIST) * 0.12
+            ctx.beginPath()
+            ctx.moveTo(nodes[i].x, nodes[i].y)
+            ctx.lineTo(nodes[j].x, nodes[j].y)
+            ctx.strokeStyle = `rgba(195, 150, 83, ${alpha})`
+            ctx.lineWidth = 0.5
+            ctx.stroke()
+          }
+        }
+      }
+
+      // Draw nodes
+      for (const n of nodes) {
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(195, 150, 83, 0.2)'
+        ctx.fill()
+      }
+
+      rafId = requestAnimationFrame(draw)
+    }
+    draw()
+
+    return () => {
+      cancelAnimationFrame(rafId)
     }
   }, [])
 
@@ -521,7 +607,8 @@ function App() {
       </section>
 
       {/* ===== TECHNOLOGY — Compact stats + layers ===== */}
-      <section className="section" id="technology">
+      <section className="tech-section" id="technology">
+        <canvas ref={networkCanvasRef} className="network-canvas" />
         <div className="section-inner centered">
           <span className="section-label reveal">Powered by Canton</span>
           <h2 className="reveal">Institutional-Grade <span className="highlight">Infrastructure</span></h2>
