@@ -490,7 +490,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  padding: 24px 60px;
+  padding: 20px 48px;
   min-height: 0;
 }
 
@@ -500,52 +500,52 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0;
-  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px;
+  margin: 4px 0;
   position: relative;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .feature-card:first-child {
-  border-top: 1px solid var(--border-color);
-}
-
-.feature-card h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-}
-
-.feature-card p {
-  font-size: 0.82rem;
-  margin-bottom: 14px;
+  border-top: none;
 }
 
 .feature-card:hover {
-  background: rgba(195, 150, 83, 0.02);
+  background: rgba(195, 150, 83, 0.04);
+  border-color: rgba(195, 150, 83, 0.12);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(195, 150, 83, 0.06);
 }
 
 .feature-number {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.7rem;
-  font-weight: 400;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
   color: var(--accent-gold);
-  opacity: 0.5;
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
+  opacity: 0.4;
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
 }
 
 .feature-card h3 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-weight: 400;
+  font-size: 1.35rem;
+  font-weight: 500;
   margin-bottom: 6px;
   color: var(--text-main);
   letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.feature-card:hover h3 {
+  color: #fff;
 }
 
 .feature-card p {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 300;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--text-muted);
   margin-bottom: 10px;
   max-width: 480px;
@@ -553,23 +553,25 @@ h2 {
 
 .feature-tags {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .tag {
   font-size: 0.55rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border: 1px solid rgba(195, 150, 83, 0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: rgba(195, 150, 83, 0.08);
+  border: none;
   color: var(--accent-gold);
   font-weight: 500;
-  transition: border-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .feature-card:hover .tag {
-  border-color: rgba(195, 150, 83, 0.4);
+  background: rgba(195, 150, 83, 0.14);
 }
 
 /* Dot matrix animation */
