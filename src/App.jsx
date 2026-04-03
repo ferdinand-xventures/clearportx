@@ -186,7 +186,7 @@ function App() {
     const canvas = dotMatrixRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const SPACING = 14
+    const SPACING = 16
     const DOT_R = 4.5
     let cols, rows, frame = 0, rafId, dpr
 
@@ -251,12 +251,6 @@ function App() {
           ctx.fill()
 
           if (intensity > 0) {
-            // Glow for bright dots
-            if (intensity > 0.6) {
-              ctx.shadowBlur = 4
-              ctx.shadowColor = 'rgba(195, 150, 83, 0.3)'
-            }
-
             // Circle ring
             ctx.beginPath()
             ctx.arc(px, py, DOT_R, 0, Math.PI * 2)
@@ -269,8 +263,6 @@ function App() {
             ctx.arc(px, py, 0.6, 0, Math.PI * 2)
             ctx.fillStyle = `rgba(195, 150, 83, ${intensity * 0.5})`
             ctx.fill()
-
-            ctx.shadowBlur = 0
           }
         }
       }
