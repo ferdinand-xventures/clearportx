@@ -394,8 +394,8 @@ function App() {
           </div>
           <nav className="nav-links">
             <a className="nav-link" href="#platform">Platform</a>
-            <a className="nav-link" href="#technology">How It Works</a>
-            <a className="nav-link" href="#solutions">Solutions</a>
+            <a className="nav-link" href="#technology">Technology</a>
+            <a className="nav-link" href="#trusted">Ecosystem</a>
             <a className="nav-link" href="#contact">Contact</a>
             <a className="nav-cta" href="#access">Get Started</a>
           </nav>
@@ -520,37 +520,11 @@ function App() {
         </div>
       </section>
 
-      {/* ===== PROBLEM / SOLUTION SECTION ===== */}
-      <section className="problem-solution-section">
-        <div className="ps-panel ps-problem reveal-left">
-          <span className="section-label">The Problem</span>
-          <h2>Institutional finance remains <span className="highlight">opaque, slow, and fragmented</span></h2>
-          <ul className="ps-points">
-            <li>Counterparty risk persists across settlement windows of T+1 to T+3</li>
-            <li>Privacy-compliance trade-offs force institutions into binary choices</li>
-            <li>Siloed infrastructure prevents true cross-venue interoperability</li>
-          </ul>
-        </div>
-        <div className="ps-panel ps-solution reveal">
-          <span className="section-label">The Solution</span>
-          <h2>ClearportX on <span className="highlight">Canton Network</span></h2>
-          <p className="ps-body">
-            Privacy-preserving atomic settlement with built-in regulatory compliance.
-            No trade-offs. No intermediaries. Institutional-grade digital asset
-            infrastructure where privacy and compliance coexist by design.
-          </p>
-          <a className="btn-secondary" href="#platform">Explore the Platform</a>
-        </div>
-      </section>
-
-      {/* ===== HOW IT WORKS — Timeline ===== */}
+      {/* ===== TECHNOLOGY — Compact stats + layers ===== */}
       <section className="section" id="technology">
-        <div className="section-inner">
-          <span className="section-label reveal">How It Works</span>
-          <h2 className="reveal">Powered by <span className="highlight">Canton</span></h2>
-          <p className="section-subtitle reveal">
-            Built on the world's most advanced privacy-enabled distributed ledger technology.
-          </p>
+        <div className="section-inner centered">
+          <span className="section-label reveal">Powered by Canton</span>
+          <h2 className="reveal">Institutional-Grade <span className="highlight">Infrastructure</span></h2>
 
           <div className="tech-stats reveal">
             <div className="tech-stat">
@@ -567,76 +541,11 @@ function App() {
             </div>
           </div>
 
-          <div className="timeline-flow">
+          <div className="tech-layers reveal">
             {TECH_LAYERS.map((layer, i) => (
-              <div className={`timeline-step ${i % 2 === 1 ? 'timeline-step--right' : ''} reveal`} key={layer.name}>
-                <div className="step-number">0{i + 1}</div>
-                <div className="step-content">
-                  <h3>{layer.name}</h3>
-                  <p>{layer.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== SOLUTIONS — Featured Showcases ===== */}
-      <section className="section" id="solutions">
-        <div className="section-inner">
-          <span className="section-label reveal">Solutions</span>
-          <h2 className="reveal">Institutional <span className="highlight">Use Cases</span></h2>
-          <p className="section-subtitle reveal">
-            Powering the next generation of institutional financial services
-            with privacy, compliance, and scale.
-          </p>
-
-          <div className="showcases">
-            {USE_CASES.map((uc, i) => (
-              <div className={`showcase-row ${i % 2 === 1 ? 'showcase-row--reversed' : ''} reveal`} key={uc.title}>
-                <div className="showcase-text">
-                  <span className="showcase-number">0{i + 1}</span>
-                  <h3>{uc.title}</h3>
-                  <p>{uc.desc}</p>
-                  <ul className="showcase-bullets">
-                    {uc.bullets.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="showcase-visual">
-                  {i === 0 && (
-                    <div className="mock-ui mock-orderbook">
-                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Dark Pool — Private</div>
-                      <div className="mock-row mock-row--bid"><span>BID</span><span>250,000</span><span className="gold">$48.32</span></div>
-                      <div className="mock-row mock-row--bid"><span>BID</span><span>180,000</span><span className="gold">$48.30</span></div>
-                      <div className="mock-divider" />
-                      <div className="mock-row mock-row--ask"><span>ASK</span><span>320,000</span><span>$48.35</span></div>
-                      <div className="mock-row mock-row--ask"><span>ASK</span><span>150,000</span><span>$48.38</span></div>
-                    </div>
-                  )}
-                  {i === 1 && (
-                    <div className="mock-ui mock-settlement">
-                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Settlement Flow</div>
-                      <div className="mock-flow">
-                        <div className="mock-node">Sender<span className="mock-node-sub">Frankfurt</span></div>
-                        <div className="mock-arrow">→</div>
-                        <div className="mock-node mock-node--canton">Canton<span className="mock-node-sub">Atomic</span></div>
-                        <div className="mock-arrow">→</div>
-                        <div className="mock-node">Receiver<span className="mock-node-sub">Singapore</span></div>
-                      </div>
-                      <div className="mock-status"><span className="mock-dot mock-dot--live" />Settled in 0.8s</div>
-                    </div>
-                  )}
-                  {i === 2 && (
-                    <div className="mock-ui mock-dashboard">
-                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Securities Dashboard</div>
-                      <div className="mock-metric"><span className="mock-metric-label">Total Issued</span><span className="mock-metric-value">$2.4B</span></div>
-                      <div className="mock-metric"><span className="mock-metric-label">Active Securities</span><span className="mock-metric-value">1,247</span></div>
-                      <div className="mock-metric"><span className="mock-metric-label">Avg Settlement</span><span className="mock-metric-value gold">0.3s</span></div>
-                    </div>
-                  )}
-                </div>
+              <div className="tech-layer" key={layer.name}>
+                <span className="tech-layer-name">{layer.name}</span>
+                <span className="tech-layer-desc">{layer.desc}</span>
               </div>
             ))}
           </div>
@@ -683,8 +592,8 @@ function App() {
           </div>
           <div className="footer-links">
             <a href="#platform">Platform</a>
-            <a href="#technology">How It Works</a>
-            <a href="#solutions">Solutions</a>
+            <a href="#technology">Technology</a>
+            <a href="#trusted">Ecosystem</a>
             <a href="#contact">Contact</a>
           </div>
           <div className="footer-right">

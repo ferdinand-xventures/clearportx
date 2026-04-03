@@ -801,6 +801,47 @@ h2 {
   font-weight: 500;
 }
 
+/* Tech layers — compact inline */
+
+.tech-layers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.tech-layer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.tech-layer:last-child {
+  border-right: none;
+}
+
+.tech-layer-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: 0.03em;
+}
+
+.tech-layer-desc {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.centered .tech-stats {
+  justify-content: center;
+}
+
 /* ============================
    HOW IT WORKS — Timeline
    ============================ */
@@ -1385,6 +1426,19 @@ h2 {
   .tech-stats {
     gap: 32px;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tech-layers {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tech-layer:nth-child(2) {
+    border-right: none;
+  }
+
+  .tech-layer:nth-child(n+3) {
+    border-top: 1px solid var(--border-color);
   }
 
   .nav-links {
@@ -1445,6 +1499,19 @@ h2 {
   .showcase-bullets {
     flex-direction: column;
     gap: 8px;
+  }
+
+  .tech-layers {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-layer {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .tech-layer:last-child {
+    border-bottom: none;
   }
 
   .partner-logo {
