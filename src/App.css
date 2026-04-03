@@ -488,7 +488,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   gap: 0;
-  padding: 40px 60px;
+  padding: 80px 60px;
   max-height: 100vh;
   overflow: hidden;
 }
