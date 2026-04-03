@@ -450,31 +450,6 @@ function App() {
         </div>
       </section>
 
-      {/* ===== STATS BAR ===== */}
-      <section className="stats-bar">
-        <div className="stats-bar-inner">
-          <div className="stat-item reveal">
-            <span className="stat-value">10,000+</span>
-            <span className="stat-label">TPS Capacity</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat-item reveal">
-            <span className="stat-value">99.99%</span>
-            <span className="stat-label">Uptime SLA</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat-item reveal">
-            <span className="stat-value">&lt; 100ms</span>
-            <span className="stat-label">Latency</span>
-          </div>
-          <div className="stat-divider" />
-          <div className="stat-item reveal">
-            <span className="stat-value">215+</span>
-            <span className="stat-label">Ecosystem Partners</span>
-          </div>
-        </div>
-      </section>
-
       {/* ===== PLATFORM SECTION — Scroll-linked sticky ===== */}
       <section className="platform-section" id="platform" ref={platformRef}>
         <div className="platform-sticky">

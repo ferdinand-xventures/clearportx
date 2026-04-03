@@ -349,58 +349,6 @@ p.subhead {
 }
 
 /* ============================
-   STATS BAR (inferencelabs-style)
-   ============================ */
-
-.stats-bar {
-  border-top: 1px solid var(--border-color);
-  border-bottom: 1px solid var(--border-color);
-  background: var(--bg);
-  padding: 48px 0;
-}
-
-.stats-bar-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 calc(var(--space-unit) * 2);
-}
-
-.stat-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.stat-value {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 4vw, 4rem);
-  font-weight: 300;
-  color: var(--text-main);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 48px;
-  background: var(--border-color);
-  flex-shrink: 0;
-}
-
-/* ============================
    SECTIONS (shared)
    ============================ */
 
@@ -1157,17 +1105,7 @@ h2 {
     align-items: flex-start;
   }
 
-  .stats-bar-inner {
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .stat-divider {
-    width: 60px;
-    height: 1px;
-  }
-
-  .usecases-grid {
+.usecases-grid {
     grid-template-columns: 1fr;
   }
 
