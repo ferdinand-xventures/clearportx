@@ -225,7 +225,7 @@ function App() {
           // Dim base dot
           ctx.beginPath()
           ctx.arc(px, py, 1, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(195, 150, 83, 0.06)'
+          ctx.fillStyle = 'rgba(195, 150, 83, 0.1)'
           ctx.fill()
 
           if (intensity > 0) {
