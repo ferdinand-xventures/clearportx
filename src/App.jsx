@@ -465,8 +465,8 @@ function App() {
       {/* ===== PLATFORM SECTION — Sticky left + scroll right ===== */}
       <section className="section" id="platform">
         <div className="platform-layout">
-          <div className="platform-left reveal-left">
-            <div className="platform-left-sticky">
+          <div className="platform-left">
+            <div className="platform-left-sticky reveal-left">
               <canvas ref={dotMatrixRef} className="dot-matrix-canvas" />
               <div className="platform-left-content">
                 <span className="section-label">Platform</span>
