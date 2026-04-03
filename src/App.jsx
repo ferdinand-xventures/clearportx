@@ -144,40 +144,34 @@ const USE_CASES = [
 ]
 
 function useScrollReveal() {
-  const observerRef = useRef(null)
-
-  const setupObserver = useCallback(() => {
-    if (observerRef.current) observerRef.current.disconnect()
-
-    observerRef.current = new IntersectionObserver(
+  useEffect(() => {
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Find siblings with .reveal in the same parent to stagger them
-            const parent = entry.target.parentElement
-            const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .reveal')) : []
-            const idx = siblings.indexOf(entry.target)
-            const delay = idx >= 0 ? idx * 0.15 : 0
-            entry.target.style.transitionDelay = `${delay}s`
             entry.target.classList.add('revealed')
-            observerRef.current?.unobserve(entry.target)
+            observer.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1 }
     )
 
+    // Assign stagger delays based on sibling position within each section
     document.querySelectorAll('.reveal, .reveal-left').forEach((el) => {
-      observerRef.current.observe(el)
+      const parent = el.parentElement
+      if (parent) {
+        const siblings = Array.from(parent.children).filter(
+          (c) => c.classList.contains('reveal') || c.classList.contains('reveal-left')
+        )
+        const idx = siblings.indexOf(el)
+        if (idx > 0) el.style.transitionDelay = `${idx * 0.15}s`
+      }
+      observer.observe(el)
     })
 
-    return () => observerRef.current?.disconnect()
+    return () => observer.disconnect()
   }, [])
-
-  useEffect(() => {
-    const cleanup = setupObserver()
-    return cleanup
-  }, [setupObserver])
 }
 
 function App() {
