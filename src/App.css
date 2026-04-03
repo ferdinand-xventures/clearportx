@@ -194,12 +194,165 @@ a {
   flex-grow: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  gap: 60px;
 }
 
 .content-left {
-  max-width: 680px;
-  text-align: center;
+  max-width: 560px;
+  text-align: left;
+}
+
+.content-right {
+  flex-shrink: 0;
+}
+
+/* ============================
+   SWAP CARD (Hero mockup)
+   ============================ */
+
+.swap-card {
+  width: 340px;
+  background: rgba(15, 22, 35, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(195, 150, 83, 0.15);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.swap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.swap-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: 0.03em;
+}
+
+.swap-badge {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+}
+
+.swap-badge--encrypted {
+  background: rgba(195, 150, 83, 0.15);
+  color: var(--accent-gold);
+}
+
+.swap-field {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.swap-field-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.swap-field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.swap-token {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.swap-token-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.swap-token-icon--usdc {
+  background: #2775ca;
+  color: #fff;
+}
+
+.swap-token-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.swap-token-ticker {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.swap-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-main);
+}
+
+.swap-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.swap-detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.swap-button {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent-gold);
+  color: var(--bg);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.swap-button:hover {
+  background: #d4a864;
 }
 
 .tag-line {
@@ -258,7 +411,6 @@ p.subhead {
   display: flex;
   gap: 16px;
   align-items: center;
-  justify-content: center;
 }
 
 .btn-primary {
@@ -614,6 +766,42 @@ h2 {
 }
 
 /* ============================
+   TECH STATS (inline in How It Works)
+   ============================ */
+
+.tech-stats {
+  display: flex;
+  gap: 48px;
+  margin-bottom: 48px;
+  padding: 32px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tech-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tech-stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  color: var(--text-main);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.tech-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ============================
    HOW IT WORKS — Timeline
    ============================ */
 
@@ -772,14 +960,136 @@ h2 {
   background: rgba(195, 150, 83, 0.03);
   border-radius: 16px;
   border: 1px solid var(--border-color);
+  padding: 24px;
 }
 
-.showcase-glyph {
+/* ============================
+   MOCK UI COMPONENTS (Showcases)
+   ============================ */
+
+.mock-ui {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(15, 22, 35, 0.6);
+  border: 1px solid rgba(195, 150, 83, 0.1);
+  border-radius: 14px;
+  padding: 20px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.mock-ui-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mock-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.mock-dot--live {
+  background: #4caf50;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+.mock-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.mock-row--bid { color: rgba(76, 175, 80, 0.7); }
+.mock-row--ask { color: rgba(244, 67, 54, 0.6); }
+
+.mock-divider {
+  height: 1px;
+  background: rgba(195, 150, 83, 0.1);
+  margin: 4px 0;
+}
+
+.mock-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.mock-node {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-main);
+  padding: 12px 16px;
+  border: 1px solid rgba(195, 150, 83, 0.15);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mock-node--canton {
+  border-color: var(--accent-gold);
+  background: rgba(195, 150, 83, 0.08);
+}
+
+.mock-node-sub {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.mock-arrow {
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  opacity: 0.5;
+}
+
+.mock-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: #4caf50;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mock-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.mock-metric:last-child {
+  border-bottom: none;
+}
+
+.mock-metric-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.mock-metric-value {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(6rem, 10vw, 10rem);
-  font-weight: 300;
-  color: rgba(195, 150, 83, 0.08);
-  line-height: 1;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text-main);
 }
 
 /* ============================
@@ -1055,6 +1365,26 @@ h2 {
 
   .content-left {
     max-width: 90vw;
+    text-align: center;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content-right {
+    display: none;
+  }
+
+  .hero-ctas {
+    justify-content: center;
+  }
+
+  .tech-stats {
+    gap: 32px;
+    flex-wrap: wrap;
   }
 
   .nav-links {
@@ -1079,6 +1409,7 @@ h2 {
 
   .content-left {
     max-width: 100%;
+    text-align: center;
   }
 
   h1 {

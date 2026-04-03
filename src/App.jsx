@@ -418,7 +418,48 @@ function App() {
             </div>
             <div className="hero-ctas">
               <a className="btn-primary" href="#access">Request Access</a>
-              <a className="btn-secondary" href="#platform">Learn More</a>
+              <a className="btn-secondary" href="#contact">Watch Demo</a>
+            </div>
+          </div>
+          <div className="content-right">
+            <div className="swap-card">
+              <div className="swap-header">
+                <span className="swap-badge">Live</span>
+                <span className="swap-title">Private Swap</span>
+                <span className="swap-badge swap-badge--encrypted">Encrypted</span>
+              </div>
+              <div className="swap-field">
+                <div className="swap-field-label">From</div>
+                <div className="swap-field-row">
+                  <div className="swap-token">
+                    <span className="swap-token-icon">C</span>
+                    <div>
+                      <div className="swap-token-name">Canton Coin</div>
+                      <div className="swap-token-ticker">CANTON</div>
+                    </div>
+                  </div>
+                  <div className="swap-amount">10,000</div>
+                </div>
+              </div>
+              <div className="swap-field">
+                <div className="swap-field-label">To</div>
+                <div className="swap-field-row">
+                  <div className="swap-token">
+                    <span className="swap-token-icon swap-token-icon--usdc">$</span>
+                    <div>
+                      <div className="swap-token-name">USD Coin</div>
+                      <div className="swap-token-ticker">USDC</div>
+                    </div>
+                  </div>
+                  <div className="swap-amount">500.00</div>
+                </div>
+              </div>
+              <div className="swap-details">
+                <div className="swap-detail-row"><span>Rate</span><span>1 CANTON = 0.05 USDC</span></div>
+                <div className="swap-detail-row"><span>Network Fee</span><span>0.3%</span></div>
+                <div className="swap-detail-row"><span>Settlement</span><span className="gold">Atomic</span></div>
+              </div>
+              <button className="swap-button">Execute Private Swap</button>
             </div>
           </div>
         </div>
@@ -511,6 +552,21 @@ function App() {
             Built on the world's most advanced privacy-enabled distributed ledger technology.
           </p>
 
+          <div className="tech-stats reveal">
+            <div className="tech-stat">
+              <span className="tech-stat-value">10,000+</span>
+              <span className="tech-stat-label">TPS Capacity</span>
+            </div>
+            <div className="tech-stat">
+              <span className="tech-stat-value">99.99%</span>
+              <span className="tech-stat-label">Uptime SLA</span>
+            </div>
+            <div className="tech-stat">
+              <span className="tech-stat-value">&lt; 100ms</span>
+              <span className="tech-stat-label">Latency</span>
+            </div>
+          </div>
+
           <div className="timeline-flow">
             {TECH_LAYERS.map((layer, i) => (
               <div className={`timeline-step ${i % 2 === 1 ? 'timeline-step--right' : ''} reveal`} key={layer.name}>
@@ -549,7 +605,37 @@ function App() {
                   </ul>
                 </div>
                 <div className="showcase-visual">
-                  <div className="showcase-glyph">0{i + 1}</div>
+                  {i === 0 && (
+                    <div className="mock-ui mock-orderbook">
+                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Dark Pool — Private</div>
+                      <div className="mock-row mock-row--bid"><span>BID</span><span>250,000</span><span className="gold">$48.32</span></div>
+                      <div className="mock-row mock-row--bid"><span>BID</span><span>180,000</span><span className="gold">$48.30</span></div>
+                      <div className="mock-divider" />
+                      <div className="mock-row mock-row--ask"><span>ASK</span><span>320,000</span><span>$48.35</span></div>
+                      <div className="mock-row mock-row--ask"><span>ASK</span><span>150,000</span><span>$48.38</span></div>
+                    </div>
+                  )}
+                  {i === 1 && (
+                    <div className="mock-ui mock-settlement">
+                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Settlement Flow</div>
+                      <div className="mock-flow">
+                        <div className="mock-node">Sender<span className="mock-node-sub">Frankfurt</span></div>
+                        <div className="mock-arrow">→</div>
+                        <div className="mock-node mock-node--canton">Canton<span className="mock-node-sub">Atomic</span></div>
+                        <div className="mock-arrow">→</div>
+                        <div className="mock-node">Receiver<span className="mock-node-sub">Singapore</span></div>
+                      </div>
+                      <div className="mock-status"><span className="mock-dot mock-dot--live" />Settled in 0.8s</div>
+                    </div>
+                  )}
+                  {i === 2 && (
+                    <div className="mock-ui mock-dashboard">
+                      <div className="mock-ui-header"><span className="mock-dot mock-dot--live" />Securities Dashboard</div>
+                      <div className="mock-metric"><span className="mock-metric-label">Total Issued</span><span className="mock-metric-value">$2.4B</span></div>
+                      <div className="mock-metric"><span className="mock-metric-label">Active Securities</span><span className="mock-metric-value">1,247</span></div>
+                      <div className="mock-metric"><span className="mock-metric-label">Avg Settlement</span><span className="mock-metric-value gold">0.3s</span></div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
