@@ -453,19 +453,35 @@ h2 {
    PLATFORM — Sticky Left + Scroll Right
    ============================ */
 
+/* Platform section — scroll-linked */
+.platform-section {
+  position: relative;
+  height: 300vh;
+  background: var(--bg);
+}
+
+.platform-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 calc(var(--space-unit) * 2);
+}
+
 .platform-layout {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  align-items: start;
+  align-items: center;
+  width: 100%;
 }
 
-.platform-left-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+.platform-left {
+  position: relative;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -477,12 +493,12 @@ h2 {
   flex-direction: column;
   gap: 0;
   padding: 32px;
+  align-self: center;
 }
 
 .feature-card {
   padding: 48px 32px;
   border-bottom: 1px solid var(--border-color);
-  transition: background 0.3s ease;
   position: relative;
 }
 
@@ -992,22 +1008,27 @@ h2 {
    ============================ */
 
 @media (max-width: 1024px) {
+  .platform-section {
+    height: auto;
+  }
+
+  .platform-sticky {
+    position: static;
+    height: auto;
+    padding: var(--section-pad) calc(var(--space-unit) * 2);
+  }
+
   .platform-layout {
     grid-template-columns: 1fr;
     gap: 48px;
   }
 
-  .platform-left-sticky {
-    position: static;
+  .platform-left {
+    height: auto;
   }
 
   .dot-matrix-canvas {
     display: none;
-  }
-
-  .platform-left-sticky {
-    position: static;
-    height: auto;
   }
 
   .platform-left-content {
@@ -1016,6 +1037,11 @@ h2 {
 
   .platform-right {
     padding: 0;
+  }
+
+  .feature-card {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .usecases-grid {

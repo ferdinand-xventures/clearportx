@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import * as THREE from 'three'
 import './App.css'
 
@@ -177,9 +177,28 @@ function useScrollReveal() {
 function App() {
   const canvasRef = useRef(null)
   const dotMatrixRef = useRef(null)
+  const platformRef = useRef(null)
   const mouseRef = useRef({ x: 0, y: 0 })
   const animFrameRef = useRef(null)
+  const [platformProgress, setPlatformProgress] = useState(0)
   useScrollReveal()
+
+  // Scroll-linked progress for platform section
+  useEffect(() => {
+    const onScroll = () => {
+      if (!platformRef.current) return
+      const rect = platformRef.current.getBoundingClientRect()
+      const sectionHeight = platformRef.current.offsetHeight
+      const viewportHeight = window.innerHeight
+      const scrolled = -rect.top
+      const maxScroll = sectionHeight - viewportHeight
+      if (maxScroll > 0) {
+        setPlatformProgress(Math.max(0, Math.min(1, scrolled / maxScroll)))
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Dot matrix animation for platform section
   useEffect(() => {
@@ -456,11 +475,11 @@ function App() {
         </div>
       </section>
 
-      {/* ===== PLATFORM SECTION — Sticky left + scroll right ===== */}
-      <section className="section" id="platform">
-        <div className="platform-layout">
-          <div className="platform-left">
-            <div className="platform-left-sticky reveal-left">
+      {/* ===== PLATFORM SECTION — Scroll-linked sticky ===== */}
+      <section className="platform-section" id="platform" ref={platformRef}>
+        <div className="platform-sticky">
+          <div className="platform-layout">
+            <div className="platform-left">
               <canvas ref={dotMatrixRef} className="dot-matrix-canvas" />
               <div className="platform-left-content">
                 <span className="section-label">Platform</span>
@@ -471,20 +490,31 @@ function App() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="platform-right">
-            {FEATURES.map((f, i) => (
-              <div className="feature-card reveal" key={f.title}>
-                <div className="feature-number">0{i + 1}</div>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-                <div className="feature-tags">
-                  {f.tags.map((t) => (
-                    <span key={t} className="tag">{t}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <div className="platform-right">
+              {FEATURES.map((f, i) => {
+                const start = i * 0.2
+                const reveal = Math.max(0, Math.min(1, (platformProgress - start) / 0.15))
+                return (
+                  <div
+                    className="feature-card"
+                    key={f.title}
+                    style={{
+                      opacity: reveal,
+                      transform: `translateY(${(1 - reveal) * 30}px)`,
+                    }}
+                  >
+                    <div className="feature-number">0{i + 1}</div>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                    <div className="feature-tags">
+                      {f.tags.map((t) => (
+                        <span key={t} className="tag">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
