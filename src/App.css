@@ -456,7 +456,7 @@ h2 {
 /* Platform section — scroll-linked */
 .platform-section {
   position: relative;
-  height: 300vh;
+  height: 350vh;
   background: var(--bg);
 }
 
@@ -465,23 +465,18 @@ h2 {
   top: 0;
   height: 100vh;
   display: flex;
-  align-items: center;
-  padding: 0 calc(var(--space-unit) * 2);
+  align-items: stretch;
 }
 
 .platform-layout {
-  max-width: var(--max-width);
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0;
-  align-items: center;
   width: 100%;
 }
 
 .platform-left {
   position: relative;
-  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -491,13 +486,15 @@ h2 {
 .platform-right {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0;
-  padding: 32px;
-  align-self: center;
+  padding: 40px 60px;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 .feature-card {
-  padding: 48px 32px;
+  padding: 32px 0;
   border-bottom: 1px solid var(--border-color);
   position: relative;
 }
@@ -1024,7 +1021,12 @@ h2 {
   }
 
   .platform-left {
-    height: auto;
+    height: 400px;
+  }
+
+  .platform-right {
+    padding: 0;
+    max-height: none;
   }
 
   .dot-matrix-canvas {
