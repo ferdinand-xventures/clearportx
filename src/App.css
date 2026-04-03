@@ -1187,33 +1187,45 @@ h2 {
   position: relative;
 }
 
-.logos-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 16px;
+.logo-marquee {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 40px;
+  padding: 28px 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
-.partner-logo {
+.logo-marquee-track {
+  display: flex;
+  gap: 60px;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-logo {
   font-family: 'Manrope', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
-  opacity: 0.6;
-  padding: 14px 32px;
-  border: 1px solid transparent;
-  border-radius: 100px;
-  background: rgba(195, 150, 83, 0.04);
-  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  opacity: 0.5;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
 }
 
-.partner-logo:hover {
+.marquee-logo:hover {
   opacity: 1;
-  border-color: rgba(195, 150, 83, 0.2);
-  background: rgba(195, 150, 83, 0.08);
   color: var(--accent-gold);
 }
 
@@ -1557,10 +1569,6 @@ h2 {
     border-bottom: none;
   }
 
-  .partner-logo {
-    font-size: 0.75rem;
-    padding: 10px 20px;
-  }
 
   .hero-ctas {
     flex-direction: column;
@@ -1589,7 +1597,4 @@ h2 {
     justify-content: center;
   }
 
-  .logos-row {
-    gap: 20px 32px;
-  }
 }

@@ -647,9 +647,13 @@ function App() {
           <p className="section-subtitle reveal">
             Built on Canton Network, the institutional-grade blockchain infrastructure.
           </p>
-          <div className="logos-row reveal">
-            {['Goldman Sachs', 'BNP Paribas', 'HSBC', 'Broadridge', 'Circle', 'Deloitte', 'Deutsche Bank'].map((name) => (
-              <span className="partner-logo" key={name}>{name}</span>
+        </div>
+        <div className="logo-marquee">
+          <div className="logo-marquee-track">
+            {[...Array(2)].map((_, setIdx) => (
+              ['Canton Network', 'Digital Asset', 'Goldman Sachs', 'BNP Paribas', 'HSBC', 'Broadridge', 'Circle', 'Deloitte', 'Deutsche Bank', 'S&P Global', 'Cboe'].map((name) => (
+                <span className="marquee-logo" key={`${setIdx}-${name}`}>{name}</span>
+              ))
             ))}
           </div>
         </div>
