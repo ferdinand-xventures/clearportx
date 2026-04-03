@@ -450,7 +450,13 @@ h2 {
 
 .platform-left-sticky {
   position: sticky;
-  top: 120px;
+  top: 80px;
+  height: calc(100vh - 160px);
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
 }
 
 .platform-right {
@@ -524,18 +530,20 @@ h2 {
 }
 
 /* Dot matrix animation */
-.dot-matrix-wrap {
-  width: 100%;
-  height: 420px;
-  margin-top: 24px;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-}
-
-.dot-matrix-wrap canvas {
-  display: block;
+.dot-matrix-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  display: block;
+}
+
+.platform-left-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px;
+  background: linear-gradient(to top, var(--bg) 0%, rgba(13, 23, 35, 0.85) 60%, transparent 100%);
 }
 
 /* ============================
@@ -976,8 +984,18 @@ h2 {
     position: static;
   }
 
-  .dot-matrix-wrap {
+  .dot-matrix-canvas {
     display: none;
+  }
+
+  .platform-left-sticky {
+    height: auto;
+    min-height: 0;
+  }
+
+  .platform-left-content {
+    background: none;
+    padding: 0;
   }
 
   .usecases-grid {

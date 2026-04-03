@@ -438,14 +438,14 @@ function App() {
         <div className="platform-layout">
           <div className="platform-left">
             <div className="platform-left-sticky">
-              <span className="section-label reveal">Platform</span>
-              <h2 className="reveal">Built for <span className="highlight">Institutions</span></h2>
-              <p className="section-subtitle reveal">
-                Enterprise-grade infrastructure designed for the most demanding financial
-                organizations. Privacy, compliance, and performance at scale.
-              </p>
-              <div className="dot-matrix-wrap">
-                <canvas ref={dotMatrixRef} />
+              <canvas ref={dotMatrixRef} className="dot-matrix-canvas" />
+              <div className="platform-left-content">
+                <span className="section-label reveal">Platform</span>
+                <h2 className="reveal">Built for <span className="highlight">Institutions</span></h2>
+                <p className="section-subtitle reveal">
+                  Enterprise-grade infrastructure designed for the most demanding financial
+                  organizations. Privacy, compliance, and performance at scale.
+                </p>
               </div>
             </div>
           </div>
