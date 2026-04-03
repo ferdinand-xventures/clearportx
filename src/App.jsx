@@ -181,66 +181,71 @@ function App() {
   const animFrameRef = useRef(null)
   useScrollReveal()
 
-  // Dot matrix animation for platform section
+  // Dense glyph matrix animation for platform section
   useEffect(() => {
     const canvas = dotMatrixRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const DOT_SPACING = 16
-    const DOT_SIZE = 4
-    let cols, rows, frame = 0, rafId
+    const CELL = 18
+    const symbols = ['>', '□', '+', '*', '◇', '△', '⊕', '∞', '◈', '⬡', '∴', '≡', '⊿', '▸', '⊗', '∝']
+    let cols, rows, grid, rafId, frame = 0
 
-    function resize() {
+    function buildGrid() {
       const rect = canvas.parentElement.getBoundingClientRect()
-      canvas.width = rect.width
-      canvas.height = rect.height
-      cols = Math.floor(canvas.width / DOT_SPACING)
-      rows = Math.floor(canvas.height / DOT_SPACING)
+      canvas.width = rect.width * (window.devicePixelRatio > 1 ? 2 : 1)
+      canvas.height = rect.height * (window.devicePixelRatio > 1 ? 2 : 1)
+      canvas.style.width = rect.width + 'px'
+      canvas.style.height = rect.height + 'px'
+      if (window.devicePixelRatio > 1) ctx.scale(2, 2)
+      cols = Math.floor(rect.width / CELL)
+      rows = Math.floor(rect.height / CELL)
+      grid = []
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          grid.push({
+            sym: symbols[Math.floor(Math.random() * symbols.length)],
+            phase: Math.random() * Math.PI * 2,
+            speed: 0.2 + Math.random() * 0.8,
+            baseAlpha: 0.15 + Math.random() * 0.55,
+            size: 9 + Math.floor(Math.random() * 4),
+          })
+        }
+      }
     }
-    resize()
-    window.addEventListener('resize', resize)
-
-    function getIntensity(c, r, time) {
-      const x = c / cols
-      const y = r / rows
-      const dist = Math.sqrt((x - 0.5) ** 2 + (y - 0.5) ** 2)
-      const pulse = (Math.sin(time * 0.04) + 1) / 2
-      const ring = Math.abs(dist - pulse * 0.45)
-      const angle = Math.atan2(y - 0.5, x - 0.5)
-      const spiral = Math.sin(dist * 12 - time * 0.08 + angle * 2)
-      const ringVal = ring < 0.04 ? 1 : ring < 0.09 ? 0.25 : 0
-      const spiralVal = spiral > 0.85 ? 0.6 : spiral > 0.5 ? 0.15 : 0
-      return Math.max(ringVal, spiralVal)
-    }
+    buildGrid()
+    window.addEventListener('resize', buildGrid)
 
     function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      const time = frame++
-      for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-          const px = i * DOT_SPACING + DOT_SPACING / 2
-          const py = j * DOT_SPACING + DOT_SPACING / 2
-          const intensity = getIntensity(i, j, time)
+      const w = canvas.style.width ? parseInt(canvas.style.width) : canvas.width
+      const h = canvas.style.height ? parseInt(canvas.style.height) : canvas.height
+      ctx.clearRect(0, 0, w, h)
+      const t = frame++ * 0.016
 
-          // Dim base dot
-          ctx.beginPath()
-          ctx.arc(px, py, 1, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(195, 150, 83, 0.1)'
-          ctx.fill()
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const g = grid[r * cols + c]
+          if (!g) continue
+          const x = c * CELL + CELL / 2
+          const y = r * CELL + CELL / 2
 
-          if (intensity > 0) {
-            // Circle stroke
-            ctx.beginPath()
-            ctx.arc(px, py, DOT_SIZE, 0, Math.PI * 2)
-            ctx.strokeStyle = `rgba(195, 150, 83, ${intensity * 0.7})`
-            ctx.lineWidth = 2
-            ctx.stroke()
-            // Center dot
-            ctx.beginPath()
-            ctx.arc(px, py, 0.8, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(195, 150, 83, ${intensity * 0.5})`
-            ctx.fill()
-          }
+          // Fade out bottom 30% for text area
+          const yRatio = r / rows
+          const fadeBottom = yRatio > 0.65 ? 1 - (yRatio - 0.65) / 0.35 : 1
+
+          // Animated wave of brightness
+          const nx = c / cols
+          const ny = r / rows
+          const wave = Math.sin(nx * 6 + t * g.speed + g.phase) *
+                       Math.cos(ny * 4 - t * 0.3 + g.phase * 0.5)
+          const brightness = (wave + 1) / 2
+
+          const alpha = g.baseAlpha * (0.3 + brightness * 0.7) * fadeBottom
+
+          ctx.font = `${g.size}px Manrope, monospace`
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillStyle = `rgba(195, 150, 83, ${Math.max(0, alpha).toFixed(3)})`
+          ctx.fillText(g.sym, x, y)
         }
       }
       rafId = requestAnimationFrame(draw)
@@ -249,7 +254,7 @@ function App() {
 
     return () => {
       cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', resize)
+      window.removeEventListener('resize', buildGrid)
     }
   }, [])
 
