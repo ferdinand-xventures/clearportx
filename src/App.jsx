@@ -186,16 +186,20 @@ function App() {
     const canvas = dotMatrixRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const DOT_SPACING = 16
-    const DOT_SIZE = 4
-    let cols, rows, frame = 0, rafId
+    const SPACING = 14
+    const DOT_R = 4.5
+    let cols, rows, frame = 0, rafId, dpr
 
     function resize() {
       const rect = canvas.parentElement.getBoundingClientRect()
-      canvas.width = rect.width
-      canvas.height = rect.height
-      cols = Math.floor(canvas.width / DOT_SPACING)
-      rows = Math.floor(canvas.height / DOT_SPACING)
+      dpr = Math.min(window.devicePixelRatio, 2)
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      canvas.style.width = rect.width + 'px'
+      canvas.style.height = rect.height + 'px'
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      cols = Math.floor(rect.width / SPACING)
+      rows = Math.floor(rect.height / SPACING)
     }
     resize()
     window.addEventListener('resize', resize)
@@ -203,43 +207,70 @@ function App() {
     function getIntensity(c, r, time) {
       const x = c / cols
       const y = r / rows
-      const dist = Math.sqrt((x - 0.5) ** 2 + (y - 0.5) ** 2)
+      const cx = 0.5, cy = 0.45
+      const dist = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2)
+      const angle = Math.atan2(y - cy, x - cx)
+
+      // Layer 1: expanding ring pulse
       const pulse = (Math.sin(time * 0.04) + 1) / 2
-      const ring = Math.abs(dist - pulse * 0.45)
-      const angle = Math.atan2(y - 0.5, x - 0.5)
-      const spiral = Math.sin(dist * 12 - time * 0.08 + angle * 2)
-      const ringVal = ring < 0.04 ? 1 : ring < 0.09 ? 0.25 : 0
-      const spiralVal = spiral > 0.85 ? 0.6 : spiral > 0.5 ? 0.15 : 0
-      return Math.max(ringVal, spiralVal)
+      const ring = Math.abs(dist - pulse * 0.5)
+      const ringVal = ring < 0.03 ? 1 : ring < 0.07 ? 0.35 : 0
+
+      // Layer 2: rotating spiral arms
+      const spiral = Math.sin(dist * 15 - time * 0.06 + angle * 3)
+      const spiralVal = spiral > 0.8 ? 0.7 : spiral > 0.4 ? 0.15 : 0
+
+      // Layer 3: concentric rings (static, subtle)
+      const rings = Math.sin(dist * 30)
+      const ringsVal = rings > 0.85 ? 0.25 : 0
+
+      // Layer 4: slow radial wave
+      const radial = Math.sin(angle * 6 + time * 0.02)
+      const radialVal = radial > 0.7 && dist < 0.35 ? 0.3 : 0
+
+      return Math.min(1, Math.max(ringVal, spiralVal, ringsVal, radialVal))
     }
 
     function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const w = parseInt(canvas.style.width)
+      const h = parseInt(canvas.style.height)
+      ctx.fillStyle = '#080e16'
+      ctx.fillRect(0, 0, w, h)
       const time = frame++
+
       for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
-          const px = i * DOT_SPACING + DOT_SPACING / 2
-          const py = j * DOT_SPACING + DOT_SPACING / 2
+          const px = i * SPACING + SPACING / 2
+          const py = j * SPACING + SPACING / 2
           const intensity = getIntensity(i, j, time)
 
-          // Dim base dot
+          // Base dot (always visible)
           ctx.beginPath()
           ctx.arc(px, py, 1, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(195, 150, 83, 0.1)'
+          ctx.fillStyle = 'rgba(195, 150, 83, 0.08)'
           ctx.fill()
 
           if (intensity > 0) {
-            // Circle stroke
+            // Glow for bright dots
+            if (intensity > 0.6) {
+              ctx.shadowBlur = 4
+              ctx.shadowColor = 'rgba(195, 150, 83, 0.3)'
+            }
+
+            // Circle ring
             ctx.beginPath()
-            ctx.arc(px, py, DOT_SIZE, 0, Math.PI * 2)
-            ctx.strokeStyle = `rgba(195, 150, 83, ${intensity * 0.7})`
+            ctx.arc(px, py, DOT_R, 0, Math.PI * 2)
+            ctx.strokeStyle = `rgba(195, 150, 83, ${intensity * 0.8})`
             ctx.lineWidth = 2
             ctx.stroke()
+
             // Center dot
             ctx.beginPath()
-            ctx.arc(px, py, 0.8, 0, Math.PI * 2)
+            ctx.arc(px, py, 0.6, 0, Math.PI * 2)
             ctx.fillStyle = `rgba(195, 150, 83, ${intensity * 0.5})`
             ctx.fill()
+
+            ctx.shadowBlur = 0
           }
         }
       }
