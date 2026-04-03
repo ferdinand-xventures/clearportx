@@ -104,10 +104,10 @@ const FEATURES = [
 ]
 
 const TECH_LAYERS = [
-  { name: 'Privacy Layer', desc: 'Zero-knowledge proofs, selective disclosure' },
-  { name: 'Execution Layer', desc: 'Smart contracts, AMM engine' },
-  { name: 'Settlement Layer', desc: 'Atomic swaps, cross-domain bridges' },
-  { name: 'Compliance Layer', desc: 'Regulatory reporting, audit trails' },
+  { name: 'Privacy Layer', desc: 'Zero-knowledge proofs and selective disclosure ensure transaction confidentiality while maintaining full auditability for regulators.' },
+  { name: 'Execution Layer', desc: 'Smart contracts and AMM engine execute trades atomically with deterministic ordering and guaranteed finality.' },
+  { name: 'Settlement Layer', desc: 'Atomic swaps and cross-domain bridges enable instant, risk-free settlement across multiple networks.' },
+  { name: 'Compliance Layer', desc: 'Regulatory reporting and audit trails embedded at the protocol level, not bolted on as an afterthought.' },
 ]
 
 const USE_CASES = [
@@ -122,24 +122,9 @@ const USE_CASES = [
     bullets: ['Sub-Second Settlement', 'Regulatory Compliance', 'Cost Reduction'],
   },
   {
-    title: 'CBDC Infrastructure',
-    desc: 'Privacy-preserving CBDC infrastructure with selective disclosure and regulatory oversight capabilities.',
-    bullets: ['Privacy Control', 'Regulatory Oversight', 'Interoperability'],
-  },
-  {
-    title: 'Tokenized Assets',
-    desc: 'Trade tokenized shares, private equity, derivatives, and alternative assets with institutional-grade privacy.',
-    bullets: ['Private Equity', 'Derivatives Trading', 'Asset Tokenization'],
-  },
-  {
     title: 'Digital Securities',
     desc: 'Issue and trade regulated digital securities with built-in compliance and real-time settlement.',
     bullets: ['Regulatory Framework', 'Real-time Settlement', 'Global Distribution'],
-  },
-  {
-    title: 'Yield Optimization',
-    desc: 'Institutional-grade yield strategies across DeFi protocols with privacy-preserving execution.',
-    bullets: ['Multi-Protocol', 'Risk-Adjusted', 'Automated Rebalancing'],
   },
 ]
 
@@ -409,7 +394,7 @@ function App() {
           </div>
           <nav className="nav-links">
             <a className="nav-link" href="#platform">Platform</a>
-            <a className="nav-link" href="#technology">Technology</a>
+            <a className="nav-link" href="#technology">How It Works</a>
             <a className="nav-link" href="#solutions">Solutions</a>
             <a className="nav-link" href="#contact">Contact</a>
             <a className="nav-cta" href="#access">Get Started</a>
@@ -494,50 +479,53 @@ function App() {
         </div>
       </section>
 
-      {/* ===== MANIFESTO SECTION ===== */}
-      <section className="manifesto-section">
-        <div className="manifesto-inner">
-          <div className="manifesto-block reveal">
-            <span className="manifesto-label">Manifesto</span>
-            <blockquote className="manifesto-quote">
-              Privacy is not a feature. It is a fundamental right of institutional market participants.
-              We build infrastructure where compliance and privacy coexist by design.
-            </blockquote>
-          </div>
-          <div className="manifesto-divider" />
-          <div className="manifesto-block reveal">
-            <span className="manifesto-label">Mission</span>
-            <p className="manifesto-text">
-              To create the standard for privacy-preserving institutional finance,
-              enabling secure, compliant, and efficient digital asset trading at global scale.
-            </p>
-          </div>
+      {/* ===== PROBLEM / SOLUTION SECTION ===== */}
+      <section className="problem-solution-section">
+        <div className="ps-panel ps-problem reveal-left">
+          <span className="section-label">The Problem</span>
+          <h2>Institutional finance remains <span className="highlight">opaque, slow, and fragmented</span></h2>
+          <ul className="ps-points">
+            <li>Counterparty risk persists across settlement windows of T+1 to T+3</li>
+            <li>Privacy-compliance trade-offs force institutions into binary choices</li>
+            <li>Siloed infrastructure prevents true cross-venue interoperability</li>
+          </ul>
+        </div>
+        <div className="ps-panel ps-solution reveal">
+          <span className="section-label">The Solution</span>
+          <h2>ClearportX on <span className="highlight">Canton Network</span></h2>
+          <p className="ps-body">
+            Privacy-preserving atomic settlement with built-in regulatory compliance.
+            No trade-offs. No intermediaries. Institutional-grade digital asset
+            infrastructure where privacy and compliance coexist by design.
+          </p>
+          <a className="btn-secondary" href="#platform">Explore the Platform</a>
         </div>
       </section>
 
-      {/* ===== TECHNOLOGY SECTION ===== */}
+      {/* ===== HOW IT WORKS — Timeline ===== */}
       <section className="section" id="technology">
         <div className="section-inner">
-          <span className="section-label reveal">Technology</span>
+          <span className="section-label reveal">How It Works</span>
           <h2 className="reveal">Powered by <span className="highlight">Canton</span></h2>
           <p className="section-subtitle reveal">
             Built on the world's most advanced privacy-enabled distributed ledger technology.
-            Canton Network provides the foundation for institutional-grade digital asset infrastructure.
           </p>
 
-          <div className="layers-grid">
+          <div className="timeline-flow">
             {TECH_LAYERS.map((layer, i) => (
-              <div className="layer-card reveal" key={layer.name}>
-                <span className="layer-number">0{i + 1}</span>
-                <h3>{layer.name}</h3>
-                <p>{layer.desc}</p>
+              <div className={`timeline-step ${i % 2 === 1 ? 'timeline-step--right' : ''} reveal`} key={layer.name}>
+                <div className="step-number">0{i + 1}</div>
+                <div className="step-content">
+                  <h3>{layer.name}</h3>
+                  <p>{layer.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SOLUTIONS SECTION — Industries-style grid ===== */}
+      {/* ===== SOLUTIONS — Featured Showcases ===== */}
       <section className="section" id="solutions">
         <div className="section-inner">
           <span className="section-label reveal">Solutions</span>
@@ -546,17 +534,23 @@ function App() {
             Powering the next generation of institutional financial services
             with privacy, compliance, and scale.
           </p>
-          <div className="usecases-grid">
+
+          <div className="showcases">
             {USE_CASES.map((uc, i) => (
-              <div className="usecase-card reveal" key={uc.title}>
-                <div className="usecase-number">0{i + 1}</div>
-                <h3>{uc.title}</h3>
-                <p>{uc.desc}</p>
-                <ul>
-                  {uc.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
+              <div className={`showcase-row ${i % 2 === 1 ? 'showcase-row--reversed' : ''} reveal`} key={uc.title}>
+                <div className="showcase-text">
+                  <span className="showcase-number">0{i + 1}</span>
+                  <h3>{uc.title}</h3>
+                  <p>{uc.desc}</p>
+                  <ul className="showcase-bullets">
+                    {uc.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="showcase-visual">
+                  <div className="showcase-glyph">0{i + 1}</div>
+                </div>
               </div>
             ))}
           </div>
@@ -564,7 +558,7 @@ function App() {
       </section>
 
       {/* ===== TRUSTED BY SECTION ===== */}
-      <section className="section" id="trusted">
+      <section className="trusted-section" id="trusted">
         <div className="section-inner centered">
           <span className="section-label reveal">Ecosystem</span>
           <h2 className="reveal">Trusted by <span className="highlight">Leading Institutions</span></h2>
@@ -574,35 +568,6 @@ function App() {
           <div className="logos-row reveal">
             {['Goldman Sachs', 'BNP Paribas', 'HSBC', 'Broadridge', 'Circle', 'Deloitte', 'Deutsche Bank'].map((name) => (
               <span className="partner-logo" key={name}>{name}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== COMMUNITY / STAGGERED CARDS ===== */}
-      <section className="community-section">
-        <div className="community-inner">
-          <div className="community-header reveal">
-            <span className="section-label">Community</span>
-            <h2>Join the <span className="highlight">Ecosystem</span></h2>
-          </div>
-          <div className="community-cards">
-            {[
-              { title: 'For Institutions', desc: 'Access institutional-grade privacy infrastructure for digital asset trading, settlement, and custody.', cta: 'Request Access' },
-              { title: 'For Developers', desc: 'Build on Canton Network with comprehensive SDKs, documentation, and developer support.', cta: 'Start Building' },
-              { title: 'For Partners', desc: 'Integrate with ClearportX to offer privacy-preserving financial services to your clients.', cta: 'Partner With Us' },
-              { title: 'For Researchers', desc: 'Explore cutting-edge research in zero-knowledge proofs, privacy-preserving computation, and DeFi.', cta: 'Read Papers' },
-            ].map((card, i) => (
-              <div className="community-card reveal" key={card.title} style={{ '--stagger': i }}>
-                <h3>{card.title}</h3>
-                <p>{card.desc}</p>
-                <a className="community-cta" href="#access">
-                  {card.cta}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                  </svg>
-                </a>
-              </div>
             ))}
           </div>
         </div>
@@ -632,7 +597,7 @@ function App() {
           </div>
           <div className="footer-links">
             <a href="#platform">Platform</a>
-            <a href="#technology">Technology</a>
+            <a href="#technology">How It Works</a>
             <a href="#solutions">Solutions</a>
             <a href="#contact">Contact</a>
           </div>
