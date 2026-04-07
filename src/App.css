@@ -1,18 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap');
 
 :root {
+  --space-unit: max(2vw, 20px);
+  --section-pad: clamp(60px, 8vw, 100px);
+  --max-width: 1280px;
+  --accent-gold: #fc8801;
+  --accent-gold-dim: var(--card-border-hover);
+}
+
+/* ===== DARK THEME (default) ===== */
+[data-theme="dark"] {
   --bg: #0d1723;
   --bg-alt: #0a1220;
   --bg-elevated: #111e2e;
   --bg-surface: #162336;
   --text-main: #f0ece4;
   --text-muted: #8a9ab5;
-  --accent-gold: #fc8801;
-  --accent-gold-dim: rgba(252, 136, 1, 0.15);
-  --space-unit: max(2vw, 20px);
-  --section-pad: clamp(60px, 8vw, 100px);
   --border-color: rgba(252, 136, 1, 0.12);
-  --max-width: 1280px;
+  --header-bg: rgba(13, 23, 35, 0.85);
+  --card-bg: var(--card-bg);
+  --card-hover: var(--card-hover);
+  --card-border-hover: var(--card-border-hover);
+  --swap-bg: rgba(15, 22, 35, 0.85);
+  --swap-field-bg: rgba(255, 255, 255, 0.03);
+  --swap-field-border: var(--swap-field-border);
+  --mock-bg: var(--mock-bg);
+  --marquee-bg: rgba(255, 255, 255, 0.03);
+  --marquee-border: var(--swap-field-border);
+  --cta-text: #0d1723;
+  --cta-text-muted: rgba(13, 23, 35, 0.7);
+  --cta-gradient-start: #0a1220;
+  --fog-color: #0d1723;
+  --dot-matrix-bg: #080e16;
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+  --bg: #f5f2ed;
+  --bg-alt: #ece8e1;
+  --bg-elevated: #ffffff;
+  --bg-surface: #faf8f5;
+  --text-main: #1a1a1a;
+  --text-muted: #6b7280;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --header-bg: rgba(245, 242, 237, 0.9);
+  --card-bg: rgba(0, 0, 0, 0.02);
+  --card-hover: var(--card-hover);
+  --card-border-hover: rgba(252, 136, 1, 0.2);
+  --swap-bg: #ffffff;
+  --swap-field-bg: #f5f2ed;
+  --swap-field-border: rgba(0, 0, 0, 0.08);
+  --mock-bg: #ffffff;
+  --marquee-bg: rgba(0, 0, 0, 0.02);
+  --marquee-border: rgba(0, 0, 0, 0.06);
+  --cta-text: #1a1a1a;
+  --cta-text-muted: rgba(26, 26, 26, 0.6);
+  --cta-gradient-start: #ece8e1;
+  --fog-color: #f5f2ed;
+  --dot-matrix-bg: #ece8e1;
 }
 
 * {
@@ -28,6 +73,7 @@ html {
 body {
   background-color: var(--bg);
   color: var(--text-main);
+  transition: background-color 0.4s ease, color 0.4s ease;
   font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -124,7 +170,7 @@ a {
 }
 
 .header-scrolled {
-  background: rgba(13, 23, 35, 0.85);
+  background: var(--header-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom-color: var(--border-color);
@@ -185,6 +231,26 @@ a {
   transform: translateX(0);
 }
 
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
 .nav-cta {
   padding: 8px 22px;
   border: 1px solid var(--accent-gold);
@@ -231,9 +297,9 @@ a {
 
 .swap-card {
   width: 340px;
-  background: rgba(15, 22, 35, 0.85);
+  background: var(--swap-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(252, 136, 1, 0.15);
+  border: 1px solid var(--card-border-hover);
   border-radius: 20px;
   padding: 24px;
   display: flex;
@@ -268,13 +334,13 @@ a {
 }
 
 .swap-badge--encrypted {
-  background: rgba(252, 136, 1, 0.15);
+  background: var(--card-border-hover);
   color: var(--accent-gold);
 }
 
 .swap-field {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--swap-field-bg);
+  border: 1px solid var(--swap-field-border);
   border-radius: 12px;
   padding: 14px 16px;
 }
@@ -341,7 +407,7 @@ a {
   flex-direction: column;
   gap: 8px;
   padding: 12px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--swap-field-border);
 }
 
 .swap-detail-row {
@@ -649,7 +715,7 @@ h2 {
 .feature-card:hover {
   background: rgba(252, 136, 1, 0.04);
   border-color: rgba(252, 136, 1, 0.12);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(252, 136, 1, 0.06);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--card-hover);
 }
 
 .feature-number {
@@ -811,7 +877,7 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at 30% 20%, rgba(252, 136, 1, 0.06) 0%, transparent 50%),
+  background: radial-gradient(ellipse at 30% 20%, var(--card-hover) 0%, transparent 50%),
               radial-gradient(ellipse at 70% 80%, rgba(252, 136, 1, 0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
@@ -1055,7 +1121,7 @@ h2 {
   align-items: center;
   justify-content: center;
   min-height: 220px;
-  background: rgba(252, 136, 1, 0.03);
+  background: var(--card-bg);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   padding: 20px;
@@ -1068,7 +1134,7 @@ h2 {
 .mock-ui {
   width: 100%;
   max-width: 380px;
-  background: rgba(15, 22, 35, 0.6);
+  background: var(--mock-bg);
   border: 1px solid rgba(252, 136, 1, 0.1);
   border-radius: 14px;
   padding: 20px;
@@ -1085,7 +1151,7 @@ h2 {
   letter-spacing: 0.05em;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--swap-field-border);
 }
 
 .mock-dot {
@@ -1132,7 +1198,7 @@ h2 {
   font-weight: 500;
   color: var(--text-main);
   padding: 12px 16px;
-  border: 1px solid rgba(252, 136, 1, 0.15);
+  border: 1px solid var(--card-border-hover);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -1163,7 +1229,7 @@ h2 {
   font-size: 0.7rem;
   color: #4caf50;
   padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--swap-field-border);
 }
 
 .mock-metric {
@@ -1171,7 +1237,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--swap-field-border);
 }
 
 .mock-metric:last-child {
@@ -1205,9 +1271,9 @@ h2 {
   overflow: hidden;
   margin-top: 40px;
   padding: 28px 0;
-  background: rgba(255, 255, 255, 0.03);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--marquee-bg);
+  border-top: 1px solid var(--marquee-border);
+  border-bottom: 1px solid var(--marquee-border);
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
@@ -1247,7 +1313,7 @@ h2 {
    ============================ */
 
 .cta-section {
-  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--accent-gold) 15%, var(--accent-gold) 100%);
+  background: linear-gradient(180deg, var(--cta-gradient-start) 0%, var(--accent-gold) 15%, var(--accent-gold) 100%);
   padding: var(--section-pad) calc(var(--space-unit) * 2);
   padding-top: calc(var(--section-pad) + 40px);
 }
@@ -1259,19 +1325,19 @@ h2 {
 }
 
 .cta-section h2 {
-  color: var(--bg);
+  color: var(--cta-text);
   margin-bottom: 20px;
 }
 
 .highlight-dark {
-  color: rgba(13, 23, 35, 0.7);
+  color: var(--cta-text-muted);
 }
 
 .cta-section p {
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.7;
-  color: rgba(13, 23, 35, 0.7);
+  color: var(--cta-text-muted);
   margin-bottom: 36px;
 }
 
