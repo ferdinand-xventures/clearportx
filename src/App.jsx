@@ -72,7 +72,7 @@ const fragmentShader = `
     float ll = length(xy);
     if (ll > 0.5) discard;
     vec3 colorMain = vec3(0.06, 0.09, 0.14);
-    vec3 colorAccent = vec3(0.76, 0.58, 0.33);
+    vec3 colorAccent = vec3(0.99, 0.53, 0.004);
     vec3 finalColor = mix(colorMain, colorAccent, vNoise * 0.5 + 0.5);
     float alpha = (0.5 - ll) * 2.0;
     alpha *= smoothstep(-1.0, 0.5, vNoise);
@@ -260,21 +260,21 @@ function App() {
           // Base dot (always visible)
           ctx.beginPath()
           ctx.arc(px, py, 1, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(195, 150, 83, 0.08)'
+          ctx.fillStyle = 'rgba(252, 136, 1, 0.08)'
           ctx.fill()
 
           if (intensity > 0) {
             // Circle ring
             ctx.beginPath()
             ctx.arc(px, py, DOT_R, 0, Math.PI * 2)
-            ctx.strokeStyle = `rgba(195, 150, 83, ${intensity * 0.8})`
+            ctx.strokeStyle = `rgba(252, 136, 1, ${intensity * 0.8})`
             ctx.lineWidth = 2
             ctx.stroke()
 
             // Center dot
             ctx.beginPath()
             ctx.arc(px, py, 0.6, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(195, 150, 83, ${intensity * 0.5})`
+            ctx.fillStyle = `rgba(252, 136, 1, ${intensity * 0.5})`
             ctx.fill()
           }
         }
@@ -350,7 +350,7 @@ function App() {
             ctx.beginPath()
             ctx.moveTo(nodes[i].x, nodes[i].y)
             ctx.lineTo(nodes[j].x, nodes[j].y)
-            ctx.strokeStyle = `rgba(195, 150, 83, ${alpha})`
+            ctx.strokeStyle = `rgba(252, 136, 1, ${alpha})`
             ctx.lineWidth = 0.8
             ctx.stroke()
           }
@@ -361,7 +361,7 @@ function App() {
       for (const n of nodes) {
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(195, 150, 83, 0.35)'
+        ctx.fillStyle = 'rgba(252, 136, 1, 0.35)'
         ctx.fill()
       }
 
@@ -424,7 +424,7 @@ function App() {
     }
     debrisGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
     const debrisMaterial = new THREE.PointsMaterial({
-      color: 0xc39653,
+      color: 0xfc8801,
       size: 0.05,
       transparent: true,
       opacity: 0.15,

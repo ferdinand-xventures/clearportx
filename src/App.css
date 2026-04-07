@@ -7,11 +7,11 @@
   --bg-surface: #162336;
   --text-main: #f0ece4;
   --text-muted: #8a9ab5;
-  --accent-gold: #c39653;
-  --accent-gold-dim: rgba(195, 150, 83, 0.15);
+  --accent-gold: #fc8801;
+  --accent-gold-dim: rgba(252, 136, 1, 0.15);
   --space-unit: max(2vw, 20px);
   --section-pad: clamp(60px, 8vw, 100px);
-  --border-color: rgba(195, 150, 83, 0.12);
+  --border-color: rgba(252, 136, 1, 0.12);
   --max-width: 1280px;
 }
 
@@ -233,7 +233,7 @@ a {
   width: 340px;
   background: rgba(15, 22, 35, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(195, 150, 83, 0.15);
+  border: 1px solid rgba(252, 136, 1, 0.15);
   border-radius: 20px;
   padding: 24px;
   display: flex;
@@ -268,7 +268,7 @@ a {
 }
 
 .swap-badge--encrypted {
-  background: rgba(195, 150, 83, 0.15);
+  background: rgba(252, 136, 1, 0.15);
   color: var(--accent-gold);
 }
 
@@ -367,7 +367,7 @@ a {
 }
 
 .swap-button:hover {
-  background: #d4a864;
+  background: #fd9d2e;
 }
 
 .tag-line {
@@ -443,15 +443,15 @@ p.subhead {
 }
 
 .btn-primary:hover {
-  background: #d4a864;
+  background: #fd9d2e;
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(195, 150, 83, 0.3);
+  box-shadow: 0 4px 20px rgba(252, 136, 1, 0.3);
 }
 
 .btn-secondary {
   display: inline-block;
   padding: 14px 36px;
-  border: 1px solid rgba(195, 150, 83, 0.4);
+  border: 1px solid rgba(252, 136, 1, 0.4);
   color: var(--accent-gold);
   font-family: 'Manrope', sans-serif;
   font-size: 0.75rem;
@@ -464,7 +464,7 @@ p.subhead {
 
 .btn-secondary:hover {
   border-color: var(--accent-gold);
-  background: rgba(195, 150, 83, 0.08);
+  background: rgba(252, 136, 1, 0.08);
 }
 
 .hero-footer {
@@ -647,9 +647,9 @@ h2 {
 }
 
 .feature-card:hover {
-  background: rgba(195, 150, 83, 0.04);
-  border-color: rgba(195, 150, 83, 0.12);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(195, 150, 83, 0.06);
+  background: rgba(252, 136, 1, 0.04);
+  border-color: rgba(252, 136, 1, 0.12);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(252, 136, 1, 0.06);
 }
 
 .feature-number {
@@ -697,7 +697,7 @@ h2 {
   text-transform: uppercase;
   padding: 4px 12px;
   border-radius: 100px;
-  background: rgba(195, 150, 83, 0.08);
+  background: rgba(252, 136, 1, 0.08);
   border: none;
   color: var(--accent-gold);
   font-weight: 500;
@@ -705,7 +705,7 @@ h2 {
 }
 
 .feature-card:hover .tag {
-  background: rgba(195, 150, 83, 0.14);
+  background: rgba(252, 136, 1, 0.14);
 }
 
 /* Dot matrix animation */
@@ -748,7 +748,7 @@ h2 {
 }
 
 .ps-solution {
-  background: rgba(195, 150, 83, 0.04);
+  background: rgba(252, 136, 1, 0.04);
 }
 
 .ps-points {
@@ -811,8 +811,8 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at 30% 20%, rgba(195, 150, 83, 0.06) 0%, transparent 50%),
-              radial-gradient(ellipse at 70% 80%, rgba(195, 150, 83, 0.04) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 30% 20%, rgba(252, 136, 1, 0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(252, 136, 1, 0.04) 0%, transparent 50%);
   pointer-events: none;
   z-index: 1;
 }
@@ -953,7 +953,7 @@ h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(4rem, 6vw, 7rem);
   font-weight: 300;
-  color: rgba(195, 150, 83, 0.12);
+  color: rgba(252, 136, 1, 0.12);
   line-height: 1;
 }
 
@@ -1055,7 +1055,7 @@ h2 {
   align-items: center;
   justify-content: center;
   min-height: 220px;
-  background: rgba(195, 150, 83, 0.03);
+  background: rgba(252, 136, 1, 0.03);
   border-radius: 16px;
   border: 1px solid var(--border-color);
   padding: 20px;
@@ -1069,7 +1069,7 @@ h2 {
   width: 100%;
   max-width: 380px;
   background: rgba(15, 22, 35, 0.6);
-  border: 1px solid rgba(195, 150, 83, 0.1);
+  border: 1px solid rgba(252, 136, 1, 0.1);
   border-radius: 14px;
   padding: 20px;
   font-family: 'Manrope', sans-serif;
@@ -1114,7 +1114,7 @@ h2 {
 
 .mock-divider {
   height: 1px;
-  background: rgba(195, 150, 83, 0.1);
+  background: rgba(252, 136, 1, 0.1);
   margin: 4px 0;
 }
 
@@ -1132,7 +1132,7 @@ h2 {
   font-weight: 500;
   color: var(--text-main);
   padding: 12px 16px;
-  border: 1px solid rgba(195, 150, 83, 0.15);
+  border: 1px solid rgba(252, 136, 1, 0.15);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -1141,7 +1141,7 @@ h2 {
 
 .mock-node--canton {
   border-color: var(--accent-gold);
-  background: rgba(195, 150, 83, 0.08);
+  background: rgba(252, 136, 1, 0.08);
 }
 
 .mock-node-sub {
