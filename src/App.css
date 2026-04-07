@@ -380,7 +380,7 @@ a {
 
 .swap-token-icon--usdc {
   background: #2775ca;
-  color: #fff;
+  color: var(--accent-gold);
 }
 
 .swap-token-name {
@@ -739,7 +739,7 @@ h2 {
 }
 
 .feature-card:hover h3 {
-  color: #fff;
+  color: var(--accent-gold);
 }
 
 .feature-card p {
