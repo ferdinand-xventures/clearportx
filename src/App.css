@@ -1759,6 +1759,26 @@ h2 {
     text-align: center;
   }
 
+  /* 3D canvas: reduce opacity on mobile so text is readable */
+  #canvas-container {
+    opacity: 0.25;
+  }
+
+  /* Logo: ensure the 'x' isn't clipped */
+  .logo img {
+    height: 26px !important;
+  }
+
+  /* Hero subtitle: ensure readable over particles */
+  .content-left p {
+    text-shadow: 0 1px 8px var(--bg), 0 0 20px var(--bg);
+  }
+
+  /* h1 text shadow for readability */
+  h1 {
+    text-shadow: 0 2px 16px var(--bg), 0 0 40px var(--bg);
+  }
+
   .footer-bottom {
     flex-direction: column;
     gap: 8px;
