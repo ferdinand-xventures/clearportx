@@ -172,7 +172,21 @@ function App() {
   const [headerHidden, setHeaderHidden] = useState(false)
   const lastScrollY = useRef(0)
   const [theme, setTheme] = useState('light')
+  const [ccPrice, setCcPrice] = useState('0.155')
   useScrollReveal()
+
+  // Fetch live CC price from DEX backend
+  useEffect(() => {
+    const fetchPrice = () => {
+      fetch('http://65.109.113.56:3001/api/price')
+        .then(r => r.json())
+        .then(d => { if (d.ccUsd > 0) setCcPrice(d.ccUsd.toFixed(4)) })
+        .catch(() => {})
+    }
+    fetchPrice()
+    const interval = setInterval(fetchPrice, 3600000) // hourly
+    return () => clearInterval(interval)
+  }, [])
 
   // Theme toggle
   useEffect(() => {
@@ -575,7 +589,7 @@ function App() {
                 </div>
               </div>
               <div className="swap-details">
-                <div className="swap-detail-row"><span>Rate</span><span>1 CC = 0.155 USDC</span></div>
+                <div className="swap-detail-row"><span>Rate</span><span>1 CC = {ccPrice} USDC</span></div>
                 <div className="swap-detail-row"><span>Network Fee</span><span>0.3%</span></div>
                 <div className="swap-detail-row"><span>Settlement</span><span className="gold">Atomic</span></div>
               </div>
