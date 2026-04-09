@@ -495,7 +495,7 @@ function App() {
       {/* ===== STICKY HEADER ===== */}
       <header className={`site-header ${headerScrolled ? 'header-scrolled' : ''} ${headerHidden ? 'header-hidden' : ''}`}>
         <div className="logo">
-          <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '49px' }} />
+          <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '33px' }} />
         </div>
         <nav className="nav-links">
           <a className="nav-link" href="#platform">Platform</a>
@@ -710,7 +710,7 @@ function App() {
         <div className="footer-inner">
           <div className="footer-brand">
             <div className="logo">
-              <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '49px' }} />
+              <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '33px' }} />
             </div>
             <p className="footer-powered">Powered by Canton Network &amp; Digital Asset</p>
             <div className="footer-social">
