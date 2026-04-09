@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback, useState } from 'react'
 import * as THREE from 'three'
 import './App.css'
 
+
 const noiseShader = `
   vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
   vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -168,7 +169,9 @@ function App() {
   const animFrameRef = useRef(null)
   const [platformProgress, setPlatformProgress] = useState(0)
   const [headerScrolled, setHeaderScrolled] = useState(false)
-  const [theme, setTheme] = useState('dark')
+  const [headerHidden, setHeaderHidden] = useState(false)
+  const lastScrollY = useRef(0)
+  const [theme, setTheme] = useState('light')
   useScrollReveal()
 
   // Theme toggle
@@ -176,9 +179,14 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
-  // Sticky header scroll detection
+  // Sticky header scroll detection + hide on scroll down
   useEffect(() => {
-    const onScroll = () => setHeaderScrolled(window.scrollY > 60)
+    const onScroll = () => {
+      const y = window.scrollY
+      setHeaderScrolled(y > 60)
+      setHeaderHidden(y > 100 && y > lastScrollY.current)
+      lastScrollY.current = y
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -485,10 +493,9 @@ function App() {
   return (
     <>
       {/* ===== STICKY HEADER ===== */}
-      <header className={`site-header ${headerScrolled ? 'header-scrolled' : ''}`}>
+      <header className={`site-header ${headerScrolled ? 'header-scrolled' : ''} ${headerHidden ? 'header-hidden' : ''}`}>
         <div className="logo">
-          <img src="/logo.svg" alt="ClearportX" />
-          <span className="logo-text">ClearportX</span>
+          <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '28px' }} />
         </div>
         <nav className="nav-links">
           <a className="nav-link" href="#platform">Platform</a>
@@ -545,10 +552,10 @@ function App() {
                 <div className="swap-field-label">From</div>
                 <div className="swap-field-row">
                   <div className="swap-token">
-                    <span className="swap-token-icon">C</span>
+                    <img src="/cc.png" alt="CC" style={{ width: 32, height: 32, borderRadius: '50%' }} />
                     <div>
                       <div className="swap-token-name">Canton Coin</div>
-                      <div className="swap-token-ticker">CANTON</div>
+                      <div className="swap-token-ticker">CC</div>
                     </div>
                   </div>
                   <div className="swap-amount">10,000</div>
@@ -558,7 +565,7 @@ function App() {
                 <div className="swap-field-label">To</div>
                 <div className="swap-field-row">
                   <div className="swap-token">
-                    <span className="swap-token-icon swap-token-icon--usdc">$</span>
+                    <img src="/usdc.png" alt="USDC" style={{ width: 32, height: 32, borderRadius: '50%' }} />
                     <div>
                       <div className="swap-token-name">USD Coin</div>
                       <div className="swap-token-ticker">USDC</div>
@@ -703,8 +710,7 @@ function App() {
         <div className="footer-inner">
           <div className="footer-brand">
             <div className="logo">
-              <img src="/logo.svg" alt="ClearportX" />
-              <span className="logo-text">ClearportX</span>
+              <img src={theme === 'dark' ? '/logo-dark.png' : '/logo-light.png'} alt="ClearportX" style={{ height: '28px' }} />
             </div>
             <p className="footer-powered">Powered by Canton Network &amp; Digital Asset</p>
             <div className="footer-social">
