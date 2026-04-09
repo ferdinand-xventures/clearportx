@@ -1316,7 +1316,7 @@ h2 {
    ============================ */
 
 .cta-section {
-  background: linear-gradient(180deg, var(--cta-gradient-start) 0%, var(--accent-gold) 15%, var(--accent-gold) 100%);
+  background: linear-gradient(180deg, var(--cta-gradient-start) 0%, var(--cta-gradient-start) 40%, rgba(252,136,1,0.15) 70%, rgba(252,136,1,0.35) 100%);
   padding: var(--section-pad) calc(var(--space-unit) * 2);
   padding-top: calc(var(--section-pad) + 40px);
 }
