@@ -1,0 +1,2 @@
+# Proxy API requests to ClearPortX backend (avoids mixed content)
+/api/*  http://65.109.113.56:3001/api/:splat  200

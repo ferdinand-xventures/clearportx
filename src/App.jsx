@@ -178,7 +178,7 @@ function App() {
   // Fetch live CC price from DEX backend
   useEffect(() => {
     const fetchPrice = () => {
-      fetch('http://65.109.113.56:3001/api/price')
+      fetch('/api/price')
         .then(r => r.json())
         .then(d => { if (d.ccUsd > 0) setCcPrice(d.ccUsd.toFixed(4)) })
         .catch(() => {})

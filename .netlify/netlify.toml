@@ -1,6 +1,5 @@
 plugins = []
 headers = []
-redirects = []
 
 [functions]
 
@@ -25,3 +24,15 @@ command = "npm run build"
 [build.processing.js]
 
 [build.services]
+
+[[redirects]]
+from = "/api/*"
+to = "http://65.109.113.56:3001/api/:splat"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
