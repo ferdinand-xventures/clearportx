@@ -575,7 +575,7 @@ function App() {
                 </div>
               </div>
               <div className="swap-details">
-                <div className="swap-detail-row"><span>Rate</span><span>1 CANTON = 0.05 USDC</span></div>
+                <div className="swap-detail-row"><span>Rate</span><span>1 CC = 0.155 USDC</span></div>
                 <div className="swap-detail-row"><span>Network Fee</span><span>0.3%</span></div>
                 <div className="swap-detail-row"><span>Settlement</span><span className="gold">Atomic</span></div>
               </div>
