@@ -527,7 +527,7 @@ function App() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             )}
           </button>
-          <a className="nav-cta" href="#access">Get Started</a>
+          <a className="nav-cta" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Get Started</a>
         </nav>
       </header>
 
@@ -551,7 +551,7 @@ function App() {
               </p>
             </div>
             <div className="hero-ctas">
-              <a className="btn-primary" href="#access">Request Access</a>
+              <a className="btn-primary" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
               <a className="btn-secondary" href="#contact">Watch Demo</a>
             </div>
           </div>
@@ -713,7 +713,7 @@ function App() {
           <h2 className="reveal">Unlock the Future of<br /><span className="highlight-dark">Private Institutional Finance</span></h2>
           <p className="reveal">Join the institutions building the future of private, compliant digital asset trading on Canton Network.</p>
           <div className="cta-buttons reveal">
-            <a className="btn-cta-primary" href="#access">Request Access</a>
+            <a className="btn-cta-primary" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
             <a className="btn-cta-secondary" href="#contact">Book a Demo</a>
           </div>
         </div>
@@ -745,7 +745,7 @@ function App() {
               <a href="#platform">Platform</a>
               <a href="#technology">Technology</a>
               <a href="#trusted">Ecosystem</a>
-              <a href="#contact">Request Access</a>
+              <a href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
             </div>
             <div className="footer-col">
               <span className="footer-col-title">Resources</span>
