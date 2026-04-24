@@ -111,6 +111,27 @@ const TECH_LAYERS = [
   { name: 'Compliance Layer', desc: 'Regulatory reporting and audit trails embedded at the protocol level, not bolted on as an afterthought.' },
 ]
 
+const PHASES = [
+  {
+    num: '01',
+    status: 'Live',
+    title: 'DLMM DEX',
+    desc: 'Dynamic Liquidity Market Maker with private institutional swaps, atomic settlement, and compliant order flow on Canton Network.',
+  },
+  {
+    num: '02',
+    status: 'Coming Next',
+    title: 'Lending & Borrowing',
+    desc: 'Institutional-grade money markets for digital assets. Over-collateralized loans, privacy-preserving credit lines, and regulated counterparties.',
+  },
+  {
+    num: '03',
+    status: 'On the Roadmap',
+    title: 'Liquid Staking',
+    desc: 'Stake Canton-native assets while keeping them productive across DeFi. Unified yield, enterprise custody, and transparent validator selection.',
+  },
+]
+
 const USE_CASES = [
   {
     title: 'Institutional Trading',
@@ -173,7 +194,31 @@ function App() {
   const lastScrollY = useRef(0)
   const [theme, setTheme] = useState('light')
   const [ccPrice, setCcPrice] = useState('0.155')
+  const [whitelistOpen, setWhitelistOpen] = useState(false)
+  const [whitelistEmail, setWhitelistEmail] = useState('')
+  const [whitelistStatus, setWhitelistStatus] = useState('idle')
   useScrollReveal()
+
+  const openWhitelist = useCallback(() => {
+    setWhitelistStatus('idle')
+    setWhitelistEmail('')
+    setWhitelistOpen(true)
+  }, [])
+
+  const handleWhitelistSubmit = async (e) => {
+    e.preventDefault()
+    setWhitelistStatus('loading')
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ 'form-name': 'whitelist', email: whitelistEmail }).toString(),
+      })
+      setWhitelistStatus('success')
+    } catch {
+      setWhitelistStatus('error')
+    }
+  }
 
   // Fetch live CC price from DEX backend
   useEffect(() => {
@@ -527,7 +572,7 @@ function App() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             )}
           </button>
-          <a className="nav-cta" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Get Started</a>
+          <button className="nav-cta" onClick={openWhitelist}>Get Started</button>
         </nav>
       </header>
 
@@ -551,8 +596,7 @@ function App() {
               </p>
             </div>
             <div className="hero-ctas">
-              <a className="btn-primary" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
-              <a className="btn-secondary" href="#contact">Watch Demo</a>
+              <button className="btn-primary" onClick={openWhitelist}>Request Access</button>
             </div>
           </div>
           <div className="content-right">
@@ -687,6 +731,30 @@ function App() {
         </div>
       </section>
 
+      {/* ===== ROADMAP — More than a DEX ===== */}
+      <section className="roadmap-section" id="roadmap">
+        <div className="section-inner centered">
+          <span className="section-label reveal">More than a DEX</span>
+          <h2 className="reveal">A <span className="highlight">Full-Stack DeFi Hub</span> for Institutions</h2>
+          <p className="section-subtitle reveal">
+            ClearportX is a superapp for compliant institutional DeFi on Canton Network.
+            Trading is the entry point — lending, borrowing, and staking follow.
+          </p>
+          <div className="roadmap-grid reveal">
+            {PHASES.map((p) => (
+              <div className="roadmap-card" key={p.num}>
+                <div className="roadmap-head">
+                  <span className="roadmap-num">Phase {p.num}</span>
+                  <span className={`roadmap-status roadmap-status--${p.status.toLowerCase().replace(/\s+/g, '-')}`}>{p.status}</span>
+                </div>
+                <h3 className="roadmap-title">{p.title}</h3>
+                <p className="roadmap-desc">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== TRUSTED BY SECTION ===== */}
       <section className="trusted-section" id="trusted">
         <div className="section-inner centered">
@@ -713,8 +781,7 @@ function App() {
           <h2 className="reveal">Unlock the Future of<br /><span className="highlight-dark">Private Institutional Finance</span></h2>
           <p className="reveal">Join the institutions building the future of private, compliant digital asset trading on Canton Network.</p>
           <div className="cta-buttons reveal">
-            <a className="btn-cta-primary" href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
-            <a className="btn-cta-secondary" href="#contact">Book a Demo</a>
+            <button className="btn-cta-primary" onClick={openWhitelist}>Request Access</button>
           </div>
         </div>
       </section>
@@ -728,14 +795,11 @@ function App() {
             </div>
             <p className="footer-powered">Powered by Canton Network &amp; Digital Asset</p>
             <div className="footer-social">
-              <a href="#" aria-label="X/Twitter">
+              <a href="https://x.com/clearportx" target="_blank" rel="noopener noreferrer" aria-label="X/Twitter">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               </a>
-              <a href="#" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/clearportx" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-              <a href="#" aria-label="GitHub">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
               </a>
             </div>
           </div>
@@ -743,23 +807,15 @@ function App() {
             <div className="footer-col">
               <span className="footer-col-title">Product</span>
               <a href="#platform">Platform</a>
+              <a href="#roadmap">Roadmap</a>
               <a href="#technology">Technology</a>
               <a href="#trusted">Ecosystem</a>
-              <a href="https://app.clearportx.com" target="_blank" rel="noopener noreferrer">Request Access</a>
+              <button className="footer-link-button" onClick={openWhitelist}>Request Access</button>
             </div>
             <div className="footer-col">
-              <span className="footer-col-title">Resources</span>
-              <a href="#">Documentation</a>
-              <a href="#">API Reference</a>
-              <a href="#">Canton Network</a>
-              <a href="#">Digital Asset</a>
-            </div>
-            <div className="footer-col">
-              <span className="footer-col-title">Company</span>
-              <a href="#">About</a>
-              <a href="#">Careers</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
+              <span className="footer-col-title">Ecosystem</span>
+              <a href="https://www.canton.network" target="_blank" rel="noopener noreferrer">Canton Network</a>
+              <a href="https://www.digitalasset.com" target="_blank" rel="noopener noreferrer">Digital Asset</a>
             </div>
           </div>
         </div>
@@ -768,6 +824,53 @@ function App() {
           <span className="footer-reg">Built on Canton Network, regulated infrastructure for institutional digital assets.</span>
         </div>
       </footer>
+
+      {/* ===== WHITELIST MODAL ===== */}
+      {whitelistOpen && (
+        <div className="modal-overlay" onClick={() => setWhitelistOpen(false)}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setWhitelistOpen(false)} aria-label="Close">×</button>
+            <span className="modal-label">Private Beta</span>
+            <h3 className="modal-title">Request Access</h3>
+            <p className="modal-body">
+              Join the whitelist for priority access to the institutional exchange built on Canton Network.
+            </p>
+            {whitelistStatus === 'success' ? (
+              <div className="modal-success">
+                <strong>You're on the list.</strong>
+                <span>We'll reach out from contact@clearportx.com when your access is ready.</span>
+              </div>
+            ) : (
+              <form
+                className="modal-form"
+                name="whitelist"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                onSubmit={handleWhitelistSubmit}
+              >
+                <input type="hidden" name="form-name" value="whitelist" />
+                <p hidden><label>Don't fill this: <input name="bot-field" /></label></p>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="you@institution.com"
+                  value={whitelistEmail}
+                  onChange={(e) => setWhitelistEmail(e.target.value)}
+                  autoFocus
+                />
+                <button type="submit" disabled={whitelistStatus === 'loading'}>
+                  {whitelistStatus === 'loading' ? 'Submitting…' : 'Join the Whitelist'}
+                </button>
+                {whitelistStatus === 'error' && (
+                  <span className="modal-error">Something went wrong. Please try again.</span>
+                )}
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </>
   )
 }

@@ -1786,3 +1786,302 @@ h2 {
   }
 
 }
+
+/* ============================
+   BUTTON RESET FOR CTA CLASSES
+   ============================ */
+
+button.nav-cta,
+button.btn-primary,
+button.btn-cta-primary {
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+}
+
+button.btn-primary,
+button.btn-cta-primary {
+  border: none;
+}
+
+.footer-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  transition: color 0.3s ease;
+}
+
+.footer-link-button:hover {
+  color: var(--accent-gold);
+}
+
+/* ============================
+   ROADMAP — Phases
+   ============================ */
+
+.roadmap-section {
+  padding: var(--section-pad) calc(var(--space-unit) * 2);
+  background: var(--bg);
+  position: relative;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+  text-align: left;
+}
+
+.roadmap-card {
+  padding: 32px 28px;
+  background: var(--bg-alt);
+  border: 1px solid var(--marquee-border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.roadmap-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+}
+
+.roadmap-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.roadmap-num {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.roadmap-status {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+.roadmap-status--live {
+  background: rgba(252, 136, 1, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(252, 136, 1, 0.35);
+}
+
+.roadmap-status--coming-next {
+  background: rgba(252, 136, 1, 0.06);
+  color: var(--accent-gold);
+  border: 1px solid rgba(252, 136, 1, 0.2);
+  opacity: 0.85;
+}
+
+.roadmap-status--on-the-roadmap {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--marquee-border);
+}
+
+.roadmap-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.roadmap-desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .roadmap-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ============================
+   WHITELIST MODAL
+   ============================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: modal-fade-in 0.2s ease;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  background: var(--bg);
+  border: 1px solid var(--marquee-border);
+  border-radius: 20px;
+  padding: 40px 36px 36px;
+  max-width: 460px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modal-pop-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modal-pop-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--bg-alt);
+  color: var(--text-main);
+}
+
+.modal-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-main);
+  margin: 8px 0 12px;
+}
+
+.modal-body {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0 0 24px;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-form input[type="email"] {
+  padding: 14px 16px;
+  background: var(--bg-alt);
+  border: 1px solid var(--marquee-border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.modal-form input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+.modal-form button[type="submit"] {
+  padding: 14px 20px;
+  background: var(--accent-gold);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-form button[type="submit"]:hover:not(:disabled) {
+  background: #fd9d2e;
+  transform: translateY(-1px);
+}
+
+.modal-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-error {
+  font-size: 0.82rem;
+  color: #e15555;
+  margin-top: 4px;
+}
+
+.modal-success {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: rgba(252, 136, 1, 0.08);
+  border: 1px solid rgba(252, 136, 1, 0.3);
+  border-radius: 12px;
+}
+
+.modal-success strong {
+  color: var(--accent-gold);
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.modal-success span {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
